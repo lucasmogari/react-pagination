@@ -1027,7 +1027,7 @@
     to-fast-properties "^2.0.0"
 
 "@lucasmogari/react-pagination@file:..":
-  version "0.0.1"
+  version "0.0.2"
 
 "@next/react-dev-overlay@9.5.2":
   version "9.5.2"

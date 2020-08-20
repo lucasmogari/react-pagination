@@ -1,45 +1,42 @@
-import commonJS from '@rollup/plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import externalDeps from 'rollup-plugin-peer-deps-external';
 import size from 'rollup-plugin-size';
 import { terser } from 'rollup-plugin-terser';
 import visualizer from 'rollup-plugin-visualizer';
-import pkg from './package.json';
 
+const input = 'src/index.js';
 const external = ['react'];
+const plugins = [resolve(), babel(), commonjs(), externalDeps()];
 
 const globals = {
   react: 'React',
 };
 
-const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx'];
-const babelConfig = { extensions };
-const resolveConfig = { extensions };
-
 export default [
   {
-    input: pkg.main,
+    input,
     output: {
-      file: pkg.module,
+      file: 'dist/react-pagination.mjs',
       format: 'es',
       sourcemap: true,
     },
     external,
-    plugins: [resolve(resolveConfig), babel(babelConfig), commonJS(), externalDeps()],
+    plugins,
   },
   {
-    input: pkg.main,
+    input,
     output: {
       file: 'dist/react-pagination.min.mjs',
       format: 'es',
       sourcemap: true,
     },
     external,
-    plugins: [resolve(resolveConfig), babel(babelConfig), commonJS(), externalDeps(), terser()],
+    plugins: [...plugins, terser()],
   },
   {
-    input: pkg.main,
+    input,
     output: {
       name: 'react-pagination',
       file: 'dist/react-pagination.development.js',
@@ -48,10 +45,10 @@ export default [
       globals,
     },
     external,
-    plugins: [resolve(resolveConfig), babel(babelConfig), commonJS(), externalDeps()],
+    plugins,
   },
   {
-    input: pkg.main,
+    input,
     output: {
       name: 'react-pagination',
       file: 'dist/react-pagination.production.min.js',
@@ -60,15 +57,6 @@ export default [
       globals,
     },
     external,
-    plugins: [
-      // replace({ 'process.env.NODE_ENV': `"production"`, delimiters: ['', ''] }),
-      resolve(resolveConfig),
-      babel(babelConfig),
-      commonJS(),
-      externalDeps(),
-      terser(),
-      size(),
-      visualizer(),
-    ],
+    plugins: [...plugins, terser(), size(), visualizer()],
   },
 ];

@@ -2,7 +2,7 @@
   "name": "@lucasmogari/react-pagination",
   "version": "0.0.2",
   "description": "React hook for pagination",
-  "main": "src/index.js",
+  "main": "index.js",
   "module": "dist/react-pagination.mjs",
   "author": "Lucas Mogari <lucas@mogari.com.br>",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
-    "build": "rollup -c",
+    "build": "rm -rf dist && NODE_ENV=production rollup -c",
     "release": "np"
   },
   "files": [
