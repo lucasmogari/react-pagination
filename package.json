@@ -1,6 +1,6 @@
 {
   "name": "@lucasmogari/react-pagination",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "React hook for pagination",
   "main": "src/index.js",
   "module": "dist/react-pagination.mjs",
@@ -10,7 +10,8 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "release": "np"
   },
   "peerDependencies": {
     "react": "^16.8.0"
@@ -22,6 +23,7 @@
     "@testing-library/jest-dom": "^5.11.3",
     "@testing-library/react-hooks": "^3.4.1",
     "jest": "^26.4.0",
+    "np": "^6.4.0",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-test-renderer": "^16.13.1",
@@ -38,5 +40,9 @@
         ]
       }
     }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   }
 }
