@@ -1,3 +1,5 @@
 'use strict';
 
-export { usePagination } from './usePagination';
+import { usePagination } from './usePagination';
+
+export default usePagination;
