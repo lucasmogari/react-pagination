@@ -1,6 +1,6 @@
 {
   "name": "@lucasmogari/react-pagination",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React hook for pagination",
   "main": "src/index.js",
   "module": "dist/react-pagination.mjs",
