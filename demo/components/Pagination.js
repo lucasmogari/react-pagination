@@ -22,7 +22,7 @@ const Pagination = ({ className, pagination }) => {
         ) : pageItem.page === 'gap' ? (
           <PageGap />
         ) : (
-          <PageItemButton {...pageItem.props} current={pageItem.current} className="w-12">
+          <PageItemButton {...pageItem.props} current={pageItem.current} className="w-16">
             {pageItem.page}
           </PageItemButton>
         )}

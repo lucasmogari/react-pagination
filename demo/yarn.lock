@@ -1039,10 +1039,10 @@
     postcss "7.0.32"
     purgecss "^2.3.0"
 
-"@lucasmogari/react-pagination@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@lucasmogari/react-pagination/-/react-pagination-0.0.3.tgz#8460d0ec62b83c4346757784612da273f42770f6"
-  integrity sha512-N/Vt8PxsaTM/HZfC2aga37ajoijJnxclMmL7n7JI9LUKjZZQsjrcAiHxz375NgjGeYc9wbSvdfZv0dBBHywoZg==
+"@lucasmogari/react-pagination@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@lucasmogari/react-pagination/-/react-pagination-0.0.4.tgz#6d83c2b495130ef32500ff6b0d5b9b825bb8f3b4"
+  integrity sha512-fh3HKhIMac+ivAOp45W7vpipCQSHojTBwS9JH+hQo113i/9pALjIdSpkQbH25zXyyLTgf0le0gGMR1kkpUfVQg==
 
 "@next/react-dev-overlay@9.5.2":
   version "9.5.2"

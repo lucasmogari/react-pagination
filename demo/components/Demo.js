@@ -84,7 +84,7 @@ const Demo = () => {
               return page === 'gap' ? (
                 <PageGap key={i} />
               ) : (
-                <PageItemButton key={i} current={current} page={page} className="w-12" {...props} />
+                <PageItemButton key={i} current={current} page={page} className="w-16" {...props} />
               );
             })}
           />
@@ -106,7 +106,7 @@ const Demo = () => {
                   key={i}
                   current={pagination.page === page}
                   page={page}
-                  className="w-12"
+                  className="w-16"
                   onClick={(e) => {
                     e.preventDefault();
                     pagination.goTo(page);
