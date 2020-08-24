@@ -47,6 +47,7 @@ const Header = () => {
           <NextButton {...pagination.getPageItem('next').props} label="" />
         </div>
       </div>
+      <br />
       <div className="sm:inline-flex sm:items-center">
         <h2 className="text-gray-700">Headless react hook for pagination</h2>
         <a
