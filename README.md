@@ -1,2 +1,3 @@
 # react-pagination
-React hooks for pagination
+
+Headless react hook for pagination
