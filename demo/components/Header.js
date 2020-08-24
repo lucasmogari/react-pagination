@@ -33,30 +33,26 @@ const Header = () => {
       <VisuallyHidden>
         <h1>react-pagination</h1>
       </VisuallyHidden>
-      <RootPagination
-        className="space-x-1 inline-flex flex-wrap items-center mb-4"
-        pages={
-          <>
-            <div className="flex items-center">
-              <PreviousButton {...pagination.getPageItem('previous').props} label="" />
+      <div className="space-x-1 inline-flex flex-wrap items-center mb-4">
+        <div className="flex items-center">
+          <PreviousButton {...pagination.getPageItem('previous').props} label="" />
 
-              <StringPagination string="react" pagination={pagination} />
+          <StringPagination string="react" pagination={pagination} />
 
-              <PageGap />
-            </div>
+          <PageGap />
+        </div>
 
-            <div className="flex items-center">
-              <StringPagination start={6} string="pagination" pagination={pagination} />
-              <NextButton {...pagination.getPageItem('next').props} label="" />
-            </div>
-          </>
-        }
-      />
+        <div className="flex items-center">
+          <StringPagination start={6} string="pagination" pagination={pagination} />
+          <NextButton {...pagination.getPageItem('next').props} label="" />
+        </div>
+      </div>
       <div className="sm:inline-flex sm:items-center">
-        <h2 className="text-gray-600">Headless react hook for pagination</h2>
+        <h2 className="text-gray-700">Headless react hook for pagination</h2>
         <a
           href="https://github.com/lucasmogari/react-pagination"
           className="w-5 inline-block sm:ml-4 hover:text-blue-700">
+          <VisuallyHidden>Github</VisuallyHidden>
           <svg
             aria-hidden="true"
             focusable="false"

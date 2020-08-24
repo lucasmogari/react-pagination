@@ -8,7 +8,7 @@ class InlineStylesHead extends Head {
   }
 
   __getInlineStyles() {
-    const { assetPrefix, files } = this.context._documentProps;
+    const { assetPrefix, files } = this.context;
     if (!files || files.length === 0) return null;
 
     return files
@@ -34,7 +34,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html className="antialiased">
+      <Html lang="en" className="antialiased">
         <InlineStylesHead />
         <body className="text-gray-800">
           <Main />

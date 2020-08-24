@@ -10,7 +10,7 @@ const Demo = () => {
 
   return (
     <div>
-      <h2>Demo</h2>
+      <h3>Demo</h3>
       <div className="space-y-4">
         <div className="flex space-x-2">
           <label className="block">
@@ -47,10 +47,11 @@ const Demo = () => {
 
         <div className="space-y-2 p-2 rounded shadow">
           <p className="">
-            Page{' '}
+            <label htmlFor="page">Page</label>{' '}
             <input
               className="form-input"
               type="number"
+              id="page"
               value={pagination.page}
               style={{ width: 80 }}
               onChange={(e) => pagination.goTo(e.target.value)}
@@ -68,8 +69,12 @@ const Demo = () => {
             className="flex items-center space-x-1"
             pages={
               <>
-                <PreviousButton {...pagination.getPageItem('previous').props} />
-                <NextButton {...pagination.getPageItem('next').props} />
+                <li>
+                  <PreviousButton {...pagination.getPageItem('previous').props} />
+                </li>
+                <li>
+                  <NextButton {...pagination.getPageItem('next').props} />
+                </li>
               </>
             }
           />
@@ -82,9 +87,19 @@ const Demo = () => {
             pages={[...Array(pagination.size - 2)].map((_, i) => {
               const { current, page, props } = pagination.getPageItem(i + 1);
               return page === 'gap' ? (
-                <PageGap key={i} />
+                <li key={i}>
+                  <PageGap key={i} />
+                </li>
               ) : (
-                <PageItemButton key={i} current={current} page={page} className="w-16" {...props} />
+                <li key={i}>
+                  <PageItemButton
+                    key={i}
+                    current={current}
+                    page={page}
+                    className="w-16"
+                    {...props}
+                  />
+                </li>
               );
             })}
           />
@@ -102,16 +117,18 @@ const Demo = () => {
             pages={[...Array(pagination.totalPages)].map((_, i) => {
               const page = i + 1;
               return (
-                <PageItemButton
-                  key={i}
-                  current={pagination.page === page}
-                  page={page}
-                  className="w-16"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    pagination.goTo(page);
-                  }}
-                />
+                <li key={i}>
+                  <PageItemButton
+                    key={i}
+                    current={pagination.page === page}
+                    page={page}
+                    className="w-16"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      pagination.goTo(page);
+                    }}
+                  />
+                </li>
               );
             })}
           />
