@@ -1,11 +1,13 @@
 {
   "name": "@lucasmogari/react-pagination",
   "version": "0.0.4",
-  "description": "React hook for pagination",
+  "description": "Headless react hook for pagination",
   "main": "index.js",
   "module": "dist/react-pagination.mjs",
   "author": "Lucas Mogari <lucas@mogari.com.br>",
   "license": "MIT",
+  "repository": "lucasmogari/react-pagination",
+  "homepage": "https://github.com/lucasmogari/react-pagination#readme",
   "scripts": {
     "dev": "rollup -c -w",
     "test": "jest",
