@@ -1,5 +1,11 @@
+import highlightjs from 'highlight.js/lib/core';
+import bash from 'highlight.js/lib/languages/bash';
+import javascript from 'highlight.js/lib/languages/javascript';
 import Head from 'next/head';
 import '../styles/index.css';
+
+highlightjs.registerLanguage('javascript', javascript);
+highlightjs.registerLanguage('bash', bash);
 
 function MyApp({ Component, pageProps }) {
   return (

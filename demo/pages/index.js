@@ -1,4 +1,4 @@
-import Highlight from 'react-highlight.js';
+import Highlight from '../components/Highlight';
 import Demo from '../components/Demo';
 import Header from '../components/Header';
 
@@ -11,7 +11,7 @@ const Home = () => {
 
         <div>
           <h3>Install</h3>
-          <Highlight language="bash" className="block rounded overflow-hidden">
+          <Highlight language="bash">
             {`npm install @lucasmogari/react-pagination --save
 # or 
 yarn add @lucasmogari/react-pagination`}
@@ -20,7 +20,7 @@ yarn add @lucasmogari/react-pagination`}
 
         <div>
           <h3>Usage</h3>
-          <Highlight language="javascript" className="block rounded overflow-hidden">
+          <Highlight language="javascript">
             {`import usePagination from '@lucasmogari/react-pagination';
 
 // item = unit that is paginated
