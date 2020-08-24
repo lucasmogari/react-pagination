@@ -1,0 +1,16 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'https://highlightjs.org/static/demo/styles/vs2015.css';
+
+h2 {
+  @apply mb-1 font-semibold;
+}
+
+h3 {
+  @apply mb-1 text-lg font-semibold;
+}
+
+h4 {
+  @apply mb-1 font-semibold;
+}
