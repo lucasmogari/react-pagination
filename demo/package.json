@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@lucasmogari/react-pagination": "^0.0.4",
+    "@lucasmogari/react-pagination": "^0.0.5",
     "classnames": "^2.2.6",
     "highlight.js": "^10.1.2",
     "next": "^9.5.2",
