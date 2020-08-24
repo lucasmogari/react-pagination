@@ -1,7 +1,7 @@
-export const getPageItemPropsFactory = (pagination) => {
+export const getPageItemFactory = (pagination, goTo) => {
   const size = pagination.size - 1;
   let maxPageItems = pagination.maxPageItems;
-  let boundaryCount, lowerBoundary, upperBoundary, upperStart, middleStart;
+  let boundaryCount, lowerBoundary, upperBoundary, upperStart, middleStart, penultimatePageItem;
   if (pagination.numbers) {
     if (pagination.arrows) {
       maxPageItems < 1 && (maxPageItems = 1);
@@ -10,61 +10,76 @@ export const getPageItemPropsFactory = (pagination) => {
     }
 
     boundaryCount = maxPageItems - 2;
-    lowerBoundary = boundaryCount + 1;
-    upperBoundary = pagination.totalPages - boundaryCount;
+    lowerBoundary = boundaryCount;
+    upperBoundary = pagination.totalPages - boundaryCount + 1;
     upperStart = pagination.totalPages - maxPageItems;
     middleStart = pagination.page - Math.ceil((maxPageItems - 4) / 2) - 2;
+    penultimatePageItem = maxPageItems - 1;
   }
 
   return (pageItemIndex) => {
-    const pageProps = {};
+    const pageItem = { props: {} };
     if (pageItemIndex > size) {
-      return pageProps;
+      return pageItem;
     }
 
     if (pagination.arrows) {
-      if (pageItemIndex === 0) {
-        pageProps.page = 'previous';
-        pageProps.disabled = pagination.page === 1;
-      } else if (pageItemIndex === size) {
-        pageProps.page = 'next';
-        pageProps.disabled = pagination.page === pagination.totalPages;
+      if (pageItemIndex === 0 || pageItemIndex === 'previous') {
+        pageItem.page = 'previous';
+        pageItem.disabled = pagination.page <= 1;
+      } else if (pageItemIndex === size || pageItemIndex === 'next') {
+        pageItem.page = 'next';
+        pageItem.disabled = pagination.page >= pagination.totalPages;
+      }
+      if (pageItem.disabled) {
+        pageItem.props.disabled = true;
       }
     }
 
-    if (pagination.numbers && !pageProps.page) {
+    if (pagination.numbers && !pageItem.page) {
       !pagination.arrows && pageItemIndex++;
 
       if (maxPageItems === 1) {
-        pageProps.page = pagination.page;
-      } else if (pagination.totalPages <= maxPageItems) {
-        pageProps.page = pageItemIndex;
+        pageItem.page = pagination.page;
+      } else if (maxPageItems === Infinity || pagination.totalPages <= maxPageItems) {
+        pageItem.page = pageItemIndex;
       } else if (maxPageItems < 5) {
-        if (pagination.page + maxPageItems - 1 > pagination.totalPages) {
-          pageProps.page = upperStart + pageItemIndex;
+        if (pagination.page + penultimatePageItem > pagination.totalPages) {
+          pageItem.page = upperStart + pageItemIndex;
         } else {
-          pageProps.page = pagination.page + pageItemIndex - 1;
+          pageItem.page = pagination.page + pageItemIndex - 1;
         }
       } else {
         if (pageItemIndex === 1) {
-          pageProps.page = 1;
+          pageItem.page = 1;
         } else if (pageItemIndex === maxPageItems) {
-          pageProps.page = pagination.totalPages;
+          pageItem.page = pagination.totalPages;
         } else {
           if (pagination.page < lowerBoundary) {
-            pageProps.page = pageItemIndex < lowerBoundary ? pageItemIndex : 'gap';
+            pageItem.page = pageItemIndex <= lowerBoundary ? pageItemIndex : 'gap';
           } else if (pagination.page > upperBoundary) {
-            pageProps.page = pageItemIndex > 2 ? upperStart + pageItemIndex : 'gap';
+            pageItem.page = pageItemIndex > 2 ? upperStart + pageItemIndex : 'gap';
           } else {
-            pageProps.page =
-              pageItemIndex === 2 || pageItemIndex === maxPageItems - 1
+            pageItem.page =
+              pageItemIndex === 2 || pageItemIndex === penultimatePageItem
                 ? 'gap'
                 : pageItemIndex + middleStart;
           }
         }
       }
-      pageProps.current = pagination.page === pageProps.page;
+      if (pagination.page === pageItem.page) {
+        pageItem.current = true;
+        pageItem.props['aria-current'] = 'true';
+      }
     }
-    return pageProps;
+    pageItem.props.onClick = (e) => {
+      e.preventDefault();
+      goTo(pageItem.page);
+    };
+
+    typeof pagination?.getPageItemProps === 'function' &&
+      (pageItem.props = Object.assign(pageItem.props, pagination.getPageItemProps(pageItem.props)));
+
+    return pageItem;
   };
 };

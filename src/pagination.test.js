@@ -27,3 +27,8 @@ test('infinity page items', () => {
   });
   expect(pagination.size).toBe(10000);
 });
+
+test('invalid total items', () => {
+  const pagination = getPagination({ totalItems: NaN });
+  expect(pagination.size).toBe(2);
+});

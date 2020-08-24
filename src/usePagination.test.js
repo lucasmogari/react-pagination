@@ -49,14 +49,14 @@ test('only arrows', () => {
     usePagination({ page: 1, totalItems: 10, itemsPerPage: 5, numbers: false })
   );
 
-  const pageItemProps0 = result.current.getPageItemProps(0);
-  expect(pageItemProps0.page).toBe('previous');
-  expect(pageItemProps0.disabled).toBe(true);
+  const pageItem0 = result.current.getPageItem(0);
+  expect(pageItem0.page).toBe('previous');
+  expect(pageItem0.disabled).toBe(true);
 
-  const pageItemProps1 = result.current.getPageItemProps(1);
-  expect(pageItemProps1.page).toBe('next');
-  expect(pageItemProps1.disabled).toBe(false);
+  const pageItem1 = result.current.getPageItem(1);
+  expect(pageItem1.page).toBe('next');
+  expect(pageItem1.disabled).toBe(false);
 
   act(() => result.current.next());
-  expect(result.current.getPageItemProps(1).disabled).toBe(true);
+  expect(result.current.getPageItem(1).disabled).toBe(true);
 });

@@ -9,15 +9,16 @@
   "scripts": {
     "dev": "rollup -c -w",
     "test": "jest",
-    "test:watch": "npm run test -- --watch",
+    "test:watch": "npm run test -- --watchAll",
     "build": "rm -rf dist && NODE_ENV=production rollup -c",
+    "start": "rollup -c -w",
     "release": "np"
   },
   "files": [
     "dist"
   ],
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.13.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",

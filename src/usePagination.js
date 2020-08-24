@@ -1,12 +1,12 @@
 import React from 'react';
 import { getPagination } from './pagination';
-import { getPageItemPropsFactory } from './page';
+import { getPageItemFactory } from './page';
 
 const paginationReducer = (state, action) => {
-  let { page, itemsPerPage, maxPageItems } = state;
+  let { page, totalItems, itemsPerPage, maxPageItems } = state;
   switch (action.type) {
     case 'update':
-      page = action.page;
+      page = parseInt(action.page, 10);
       break;
 
     case 'previous':
@@ -15,6 +15,10 @@ const paginationReducer = (state, action) => {
 
     case 'next':
       page = state.page + 1;
+      break;
+
+    case 'update-total-items':
+      totalItems = parseInt(action.totalItems, 10);
       break;
 
     case 'update-items-per-page':
@@ -30,10 +34,11 @@ const paginationReducer = (state, action) => {
   }
 
   return page === state.page &&
+    totalItems === state.totalItems &&
     itemsPerPage === state.itemsPerPage &&
     maxPageItems === state.maxPageItems
     ? state
-    : getPagination({ ...state, page, itemsPerPage, maxPageItems });
+    : getPagination({ ...state, page, totalItems, itemsPerPage, maxPageItems });
 };
 
 const PREVIOUS_ACTION = { type: 'previous' };
@@ -42,6 +47,11 @@ const NEXT_ACTION = { type: 'next' };
 export const usePagination = (initialData) => {
   const [pagination, dispatch] = React.useReducer(paginationReducer, initialData, getPagination);
 
+  const setTotalItems = (totalItems) => dispatch({ type: 'update-total-items', totalItems });
+  const setItemsPerPage = (itemsPerPage) =>
+    dispatch({ type: 'update-items-per-page', itemsPerPage });
+  const setMaxPageItems = (maxPageItems) =>
+    dispatch({ type: 'update-max-page-items', maxPageItems });
   const previous = () => dispatch(PREVIOUS_ACTION);
   const next = () => dispatch(NEXT_ACTION);
   const goTo = (page) => {
@@ -60,13 +70,16 @@ export const usePagination = (initialData) => {
     }
   };
 
-  const getPageItemProps = React.useCallback(getPageItemPropsFactory(pagination), [
+  React.useEffect(() => void setTotalItems(initialData.totalItems), [initialData.totalItems]);
+
+  const getPageItem = React.useCallback(getPageItemFactory(pagination, goTo), [
     pagination.page,
     pagination.totalPages,
     pagination.size,
     pagination.maxPageItems,
     pagination.arrows,
     pagination.numbers,
+    pagination.getPageItemProps,
   ]);
 
   return {
@@ -74,8 +87,9 @@ export const usePagination = (initialData) => {
     goTo,
     previous,
     next,
-    getPageItemProps,
-    setItemsPerPage: (itemsPerPage) => dispatch({ type: 'update-items-per-page', itemsPerPage }),
-    setMaxPageItems: (maxPageItems) => dispatch({ type: 'update-max-page-items', maxPageItems }),
+    getPageItem,
+    setTotalItems,
+    setItemsPerPage,
+    setMaxPageItems,
   };
 };
