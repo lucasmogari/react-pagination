@@ -1,4 +1,4 @@
-export const getPageItemFactory = (pagination, goTo) => {
+export const getPageItemFactory = (pagination, goTo, getPageItemProps) => {
   const size = pagination.size - 1;
   let maxPageItems = pagination.maxPageItems;
   let boundaryCount, lowerBoundary, upperBoundary, upperStart, middleStart, penultimatePageItem;
@@ -77,8 +77,12 @@ export const getPageItemFactory = (pagination, goTo) => {
       goTo(pageItem.page);
     };
 
-    typeof pagination?.getPageItemProps === 'function' &&
-      (pageItem.props = Object.assign(pageItem.props, pagination.getPageItemProps(pageItem.props)));
+    getPageItemProps &&
+      typeof getPageItemProps === 'function' &&
+      (pageItem.props = Object.assign(
+        pageItem.props,
+        getPageItemProps(pageItemIndex, pageItem.page, pageItem.props)
+      ));
 
     return pageItem;
   };

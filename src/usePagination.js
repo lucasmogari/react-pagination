@@ -17,15 +17,15 @@ const paginationReducer = (state, action) => {
       page = state.page + 1;
       break;
 
-    case 'update-total-items':
+    case 'totalItems':
       totalItems = parseInt(action.totalItems, 10);
       break;
 
-    case 'update-items-per-page':
+    case 'itemsPerPage':
       itemsPerPage = parseInt(action.itemsPerPage, 10);
       break;
 
-    case 'update-max-page-items':
+    case 'maxPageItems':
       maxPageItems = parseInt(action.maxPageItems, 10);
       break;
 
@@ -44,14 +44,12 @@ const paginationReducer = (state, action) => {
 const PREVIOUS_ACTION = { type: 'previous' };
 const NEXT_ACTION = { type: 'next' };
 
-export const usePagination = (initialData) => {
+export const usePagination = ({ getPageItemProps, ...initialData }) => {
   const [pagination, dispatch] = React.useReducer(paginationReducer, initialData, getPagination);
 
-  const setTotalItems = (totalItems) => dispatch({ type: 'update-total-items', totalItems });
-  const setItemsPerPage = (itemsPerPage) =>
-    dispatch({ type: 'update-items-per-page', itemsPerPage });
-  const setMaxPageItems = (maxPageItems) =>
-    dispatch({ type: 'update-max-page-items', maxPageItems });
+  const setTotalItems = (totalItems) => dispatch({ type: 'totalItems', totalItems });
+  const setItemsPerPage = (itemsPerPage) => dispatch({ type: 'itemsPerPage', itemsPerPage });
+  const setMaxPageItems = (maxPageItems) => dispatch({ type: 'maxPageItems', maxPageItems });
   const previous = () => dispatch(PREVIOUS_ACTION);
   const next = () => dispatch(NEXT_ACTION);
   const goTo = (page) => {
@@ -72,14 +70,13 @@ export const usePagination = (initialData) => {
 
   React.useEffect(() => void setTotalItems(initialData.totalItems), [initialData.totalItems]);
 
-  const getPageItem = React.useCallback(getPageItemFactory(pagination, goTo), [
+  const getPageItem = React.useMemo(() => getPageItemFactory(pagination, goTo, getPageItemProps), [
     pagination.page,
     pagination.totalPages,
     pagination.size,
     pagination.maxPageItems,
     pagination.arrows,
     pagination.numbers,
-    pagination.getPageItemProps,
   ]);
 
   return {

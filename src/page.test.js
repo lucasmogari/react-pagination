@@ -1,6 +1,19 @@
 import { getPageItemFactory } from './page';
 import { getPagination } from './pagination';
 
+test('getPageItemProps', () => {
+  const pagination = getPagination({ totalItems: 50 });
+  const getPageItemProps = (pageItemIndex, page, props) => ({
+    ...props,
+    label: page,
+    onClick: 'override onClick',
+  });
+
+  const getPageItem = getPageItemFactory(pagination, null, getPageItemProps);
+  expect(getPageItem(1).props.label).toBe(1);
+  expect(getPageItem(1).props.onClick).toBe('override onClick');
+});
+
 test('arrows only', () => {
   const pagination = getPagination({ totalItems: 50, itemsPerPage: 5, numbers: false });
 
@@ -315,18 +328,18 @@ test('100 pages with 9 page items', () => {
 });
 
 const expectPages = (pagination, pages) => {
-  const getPageItemProps = getPageItemFactory(pagination);
+  const getPageItem = getPageItemFactory(pagination);
   for (let i = 0; i < pages.length; i++) {
     const page = pages[i];
     if (typeof page === 'object') {
-      const pageItemProps = getPageItemProps(i);
+      const pageItem = getPageItem(i);
       for (const key in page) {
         if (page.hasOwnProperty(key)) {
-          expect(pageItemProps[key]).toBe(page[key]);
+          expect(pageItem[key]).toBe(page[key]);
         }
       }
     } else {
-      expect(getPageItemProps(i).page).toBe(page);
+      expect(getPageItem(i).page).toBe(page);
     }
   }
 };
