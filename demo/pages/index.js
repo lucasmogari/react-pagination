@@ -33,12 +33,12 @@ fromItem,
 toItem,
 getPageItem,
 totalPages,
-size,             // size of the pagination, considering arrows and numbers
-numbers,          // show numbers
-arrows,           // show arrows
-goTo,             // go to a specific page (page number, 'previous', 'next')
-previous,         // go to the previous page
-next,             // go to the next page
+size,                 // size of the pagination, considering arrows and numbers
+numbers,              // show numbers
+arrows,               // show arrows
+goTo,                 // go to a specific page (page number, 'previous', 'next')
+previous,             // go to the previous page
+next,                 // go to the next page
 totalItems,
 setTotalItems,
 itemsPerPage,
@@ -46,12 +46,13 @@ setItemsPerPage,
 maxPageItems,
 setMaxPageItems,
 } = usePagination({
-  totalItems,     // [1, Infinity]
-  page,           // [1, totalPages] - default 1
-  itemsPerPage,   // [1, Infinity] - default 24
-  maxPageItems,   // [1, Infinity] - default 7
-  numbers,        // default true
-  arrows,         // default true
+  totalItems,         // [1, Infinity]
+  page,               // [1, totalPages] - default 1
+  itemsPerPage,       // [1, Infinity] - default 24
+  maxPageItems,       // [1, Infinity] - default 7
+  numbers,            // default true
+  arrows,             // default true
+  getPageItemProps,   // function that resolves any props for a page item
 });`}
           </Highlight>
         </div>
