@@ -1,10 +1,9 @@
-import Pagination, { RootPagination } from './Pagination';
-import PreviousButton from './PreviousButton';
-import NextButton from './NextButton';
-import PageItemButton from './PageItemButton';
-import PageGap from './PageGap';
-import { VisuallyHidden } from 'reakit/VisuallyHidden';
 import usePagination from '@lucasmogari/react-pagination';
+import { VisuallyHidden } from 'reakit/VisuallyHidden';
+import NextButton from './NextButton';
+import PageGap from './PageGap';
+import PageItemButton from './PageItemButton';
+import PreviousButton from './PreviousButton';
 
 const StringPagination = ({ start = 1, string, pagination }) =>
   [...Array(string.length)].map((_, i) => {
