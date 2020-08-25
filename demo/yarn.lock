@@ -1039,10 +1039,10 @@
     postcss "7.0.32"
     purgecss "^2.3.0"
 
-"@lucasmogari/react-pagination@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@lucasmogari/react-pagination/-/react-pagination-0.0.5.tgz#66d13ea57aefc1fe29b7e0d1f9fc35fe61df0887"
-  integrity sha512-o21V6xyPLtl18zuHQLSvomQnaBBRHUMFobYDlSunVpInrTWDtYL4NZMCsfc4a52DsOw220UJ+3G0TzweRJ9kKg==
+"@lucasmogari/react-pagination@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@lucasmogari/react-pagination/-/react-pagination-0.0.6.tgz#ad39cecaa003f77dee127ef48f85b543e2def97d"
+  integrity sha512-OVpX9roUbEZHTYfv0TiYDtruHevHWs+1yhQxMjnM6mNjn4swMZLjB6XSbU6ssYkfQz7ZzJ6saKGSDPVjQUQX+w==
 
 "@next/bundle-analyzer@^9.5.2":
   version "9.5.2"
@@ -5485,7 +5485,7 @@ webpack-sources@2.0.0-beta.9:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@4.44.1, webpack@^5.0.0-beta.6:
+webpack@4.44.1, webpack@^5.0.0-beta.28:
   version "5.0.0-beta.28"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.0.0-beta.28.tgz#5e3f3f0e1587f3eeffd8402ce7bd3d7d3ab1f242"
   integrity sha512-NVaE2s4YlhP07eFtfw8mmBKlRQYcc+vjLIVyLSaawCvJdt7i53oHDe2K8zTDNCNcP/HWluEg9kghV19LBE2T4A==
