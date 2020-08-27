@@ -6,7 +6,7 @@ const paginationReducer = (state, action) => {
   let { page, totalItems, itemsPerPage, maxPageItems } = state;
   switch (action.type) {
     case 'update':
-      page = parseInt(action.page, 10);
+      page = Number(action.page);
       break;
 
     case 'previous':
@@ -18,15 +18,15 @@ const paginationReducer = (state, action) => {
       break;
 
     case 'totalItems':
-      totalItems = parseInt(action.totalItems, 10);
+      totalItems = Number(action.totalItems);
       break;
 
     case 'itemsPerPage':
-      itemsPerPage = parseInt(action.itemsPerPage, 10);
+      itemsPerPage = Number(action.itemsPerPage);
       break;
 
     case 'maxPageItems':
-      maxPageItems = parseInt(action.maxPageItems, 10);
+      maxPageItems = Number(action.maxPageItems);
       break;
 
     default:
