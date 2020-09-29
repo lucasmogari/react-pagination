@@ -3,7 +3,9 @@ import { getPagination } from './pagination';
 import { getPageItemFactory } from './page';
 
 const paginationReducer = (state, action) => {
-  let { page, totalItems, itemsPerPage, maxPageItems } = state;
+  const { page = 1 } = action.page;
+  let { totalItems, itemsPerPage, maxPageItems } = state;
+
   switch (action.type) {
     case 'update':
       page = Number(action.page);
@@ -46,6 +48,7 @@ const NEXT_ACTION = { type: 'next' };
 
 export const usePagination = ({ getPageItemProps, ...initialData }) => {
   const [pagination, dispatch] = React.useReducer(paginationReducer, initialData, getPagination);
+  console.log(initialData)
 
   const setTotalItems = (totalItems) => dispatch({ type: 'totalItems', totalItems });
   const setItemsPerPage = (itemsPerPage) => dispatch({ type: 'itemsPerPage', itemsPerPage });
@@ -69,6 +72,14 @@ export const usePagination = ({ getPageItemProps, ...initialData }) => {
   };
 
   React.useEffect(() => void setTotalItems(initialData.totalItems), [initialData.totalItems]);
+
+  React.useEffect(() => {
+    if (!initialData?.page){
+      return;
+    }
+
+    dispatch({ page: initialData?.page, type: 'update' })
+  }, [initialData?.page])
 
   const getPageItem = React.useMemo(() => getPageItemFactory(pagination, goTo, getPageItemProps), [
     pagination.page,
