@@ -4,7 +4,6 @@ import { getPageItemFactory } from './page';
 
 const paginationReducer = (state, action) => {
   let { page, totalItems, itemsPerPage, maxPageItems } = state;
-
   switch (action.type) {
     case 'update':
       page = Number(action.page);
@@ -47,7 +46,6 @@ const NEXT_ACTION = { type: 'next' };
 
 export const usePagination = ({ getPageItemProps, ...initialData }) => {
   const [pagination, dispatch] = React.useReducer(paginationReducer, initialData, getPagination);
-  console.log(initialData)
 
   const setTotalItems = (totalItems) => dispatch({ type: 'totalItems', totalItems });
   const setItemsPerPage = (itemsPerPage) => dispatch({ type: 'itemsPerPage', itemsPerPage });
