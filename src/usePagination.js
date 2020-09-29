@@ -3,8 +3,7 @@ import { getPagination } from './pagination';
 import { getPageItemFactory } from './page';
 
 const paginationReducer = (state, action) => {
-  const { page = 1 } = action.page;
-  let { totalItems, itemsPerPage, maxPageItems } = state;
+  let { page, totalItems, itemsPerPage, maxPageItems } = state;
 
   switch (action.type) {
     case 'update':
