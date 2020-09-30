@@ -70,6 +70,14 @@ export const usePagination = ({ getPageItemProps, ...initialData }) => {
 
   React.useEffect(() => void setTotalItems(initialData.totalItems), [initialData.totalItems]);
 
+  React.useEffect(() => {
+    if (!initialData?.page){
+      return;
+    }
+
+    dispatch({ page: initialData?.page, type: 'update' })
+  }, [initialData?.page])
+
   const getPageItem = React.useMemo(() => getPageItemFactory(pagination, goTo, getPageItemProps), [
     pagination.page,
     pagination.totalPages,
