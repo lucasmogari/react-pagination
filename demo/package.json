@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "./bin/run-dev.sh",
     "build": "next build",
     "export": "next export",
     "start": "next start"
   },
   "dependencies": {
-    "@lucasmogari/react-pagination": "^0.0.6",
+    "@lucasmogari/react-pagination": "^0.0.7",
     "classnames": "^2.2.6",
     "highlight.js": "^10.1.2",
-    "next": "^9.5.2",
+    "next": "^9.5.4-canary.23",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "reakit": "^1.2.2"
@@ -20,12 +20,13 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^9.5.2",
     "@tailwindcss/custom-forms": "^0.2.1",
+    "next-compose-plugins": "^2.2.0",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.7.0",
     "tailwindcss": "^1.7.3"
   },
   "resolutions": {
-    "webpack": "^5.0.0-beta.28"
+    "webpack": "^5.0.0-rc.3"
   }
 }

@@ -6,7 +6,7 @@ import PageItemButton from './PageItemButton';
 import PageGap from './PageGap';
 
 const Demo = () => {
-  const pagination = usePagination({ itemsPerPage: 24, totalItems: 1000 });
+  const pagination = usePagination({ page:2, itemsPerPage: 24, totalItems: 1000 });
 
   return (
     <div>

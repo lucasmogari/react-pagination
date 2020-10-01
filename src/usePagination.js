@@ -2,13 +2,10 @@ import React from 'react';
 import { getPagination } from './pagination';
 import { getPageItemFactory } from './page';
 
-const paginationReducer = (state, action) => {
+const paginationReducer = (state, { type, ...params }) => {
   let { page, totalItems, itemsPerPage, maxPageItems } = state;
-  switch (action.type) {
-    case 'update':
-      page = Number(action.page);
-      break;
-
+  console.log(type, params);
+  switch (type) {
     case 'previous':
       page = state.page - 1;
       break;
@@ -17,20 +14,47 @@ const paginationReducer = (state, action) => {
       page = state.page + 1;
       break;
 
+    case 'goTo':
+      if (params.page) {
+        page = Number(params.page);
+      }
+      break;
+
     case 'totalItems':
-      totalItems = Number(action.totalItems);
+      if (params.totalItems) {
+        totalItems = Number(params.totalItems);
+      }
       break;
 
     case 'itemsPerPage':
-      itemsPerPage = Number(action.itemsPerPage);
+      if (params.itemsPerPage) {
+        itemsPerPage = Number(params.itemsPerPage);
+      }
       break;
 
     case 'maxPageItems':
-      maxPageItems = Number(action.maxPageItems);
+      if (params.maxPageItems) {
+        maxPageItems = Number(params.maxPageItems);
+      }
+      break;
+
+    case 'update':
+      if (params.page) {
+        page = Number(params.page);
+      }
+      if (params.totalItems) {
+        totalItems = Number(params.totalItems);
+      }
+      if (params.itemsPerPage) {
+        itemsPerPage = Number(params.itemsPerPage);
+      }
+      if (params.maxPageItems) {
+        maxPageItems = Number(params.maxPageItems);
+      }
       break;
 
     default:
-      throw new Error(`Unknown action type ${action.type}`);
+      throw new Error(`Unknown action type ${type}`);
   }
 
   return page === state.page &&
@@ -46,6 +70,7 @@ const NEXT_ACTION = { type: 'next' };
 
 export const usePagination = ({ getPageItemProps, ...initialData }) => {
   const [pagination, dispatch] = React.useReducer(paginationReducer, initialData, getPagination);
+  const firstRender = React.useRef(true);
 
   const setTotalItems = (totalItems) => dispatch({ type: 'totalItems', totalItems });
   const setItemsPerPage = (itemsPerPage) => dispatch({ type: 'itemsPerPage', itemsPerPage });
@@ -63,20 +88,29 @@ export const usePagination = ({ getPageItemProps, ...initialData }) => {
         break;
 
       default:
-        dispatch({ type: 'update', page });
+        dispatch({ type: 'goTo', page });
         break;
     }
   };
 
-  React.useEffect(() => void setTotalItems(initialData.totalItems), [initialData.totalItems]);
-
   React.useEffect(() => {
-    if (!initialData?.page){
-      return;
+    if (firstRender.current) {
+      firstRender.current = false;
+    } else {
+      dispatch({
+        type: 'update',
+        page: initialData.page,
+        totalItems: initialData.totalItems,
+        itemsPerPage: initialData.itemsPerPage,
+        maxPageItems: initialData.maxPageItems,
+      });
     }
-
-    dispatch({ page: initialData?.page, type: 'update' })
-  }, [initialData?.page])
+  }, [
+    initialData.page,
+    initialData.totalItems,
+    initialData.itemsPerPage,
+    initialData.maxPageItems,
+  ]);
 
   const getPageItem = React.useMemo(() => getPageItemFactory(pagination, goTo, getPageItemProps), [
     pagination.page,

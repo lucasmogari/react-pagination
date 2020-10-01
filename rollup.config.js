@@ -8,55 +8,71 @@ import visualizer from 'rollup-plugin-visualizer';
 
 const input = 'src/index.js';
 const external = ['react'];
-const plugins = [resolve(), babel(), commonjs(), externalDeps()];
+const plugins = [
+  resolve(),
+  babel({
+    exclude: 'node_modules/**',
+  }),
+  commonjs(),
+  externalDeps(),
+];
 
 const globals = {
   react: 'React',
 };
 
-export default [
-  {
-    input,
-    output: {
-      file: 'dist/react-pagination.mjs',
-      format: 'es',
-      sourcemap: true,
-    },
-    external,
-    plugins,
+const developmentConfig = {
+  input,
+  output: {
+    name: 'react-pagination',
+    file: 'dist/react-pagination.development.js',
+    format: 'umd',
+    sourcemap: true,
+    globals,
   },
-  {
-    input,
-    output: {
-      file: 'dist/react-pagination.min.mjs',
-      format: 'es',
-      sourcemap: true,
+  external,
+  plugins,
+};
+
+let config;
+if (process.env.NODE_ENV === 'development') {
+  config = [developmentConfig];
+} else {
+  config = [
+    {
+      input,
+      output: {
+        file: 'dist/react-pagination.mjs',
+        format: 'es',
+        sourcemap: true,
+      },
+      external,
+      plugins,
     },
-    external,
-    plugins: [...plugins, terser()],
-  },
-  {
-    input,
-    output: {
-      name: 'react-pagination',
-      file: 'dist/react-pagination.development.js',
-      format: 'umd',
-      sourcemap: true,
-      globals,
+    {
+      input,
+      output: {
+        file: 'dist/react-pagination.min.mjs',
+        format: 'es',
+        sourcemap: true,
+      },
+      external,
+      plugins: [...plugins, terser()],
     },
-    external,
-    plugins,
-  },
-  {
-    input,
-    output: {
-      name: 'react-pagination',
-      file: 'dist/react-pagination.production.min.js',
-      format: 'umd',
-      sourcemap: true,
-      globals,
+    developmentConfig,
+    {
+      input,
+      output: {
+        name: 'react-pagination',
+        file: 'dist/react-pagination.production.min.js',
+        format: 'umd',
+        sourcemap: true,
+        globals,
+      },
+      external,
+      plugins: [...plugins, terser(), size(), visualizer()],
     },
-    external,
-    plugins: [...plugins, terser(), size(), visualizer()],
-  },
-];
+  ];
+}
+
+export default config;
