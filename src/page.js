@@ -72,18 +72,17 @@ export const getPageItemFactory = (pagination, goTo, getPageItemProps) => {
         pageItem.props['aria-current'] = 'true';
       }
     }
+    const page = pageItem.page;
     pageItem.props.onClick = (e) => {
       e.preventDefault();
-      goTo(pageItem.page);
+      goTo(page);
     };
-
     getPageItemProps &&
       typeof getPageItemProps === 'function' &&
       (pageItem.props = Object.assign(
         pageItem.props,
-        getPageItemProps(pageItemIndex, pageItem.page, pageItem.props)
+        getPageItemProps(pageItemIndex, page, pageItem.props)
       ));
-
     return pageItem;
   };
 };

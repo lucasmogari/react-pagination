@@ -4,7 +4,6 @@ import { getPageItemFactory } from './page';
 
 const paginationReducer = (state, { type, ...params }) => {
   let { page, totalItems, itemsPerPage, maxPageItems } = state;
-  console.log(type, params);
   switch (type) {
     case 'previous':
       page = state.page - 1;
@@ -12,30 +11,6 @@ const paginationReducer = (state, { type, ...params }) => {
 
     case 'next':
       page = state.page + 1;
-      break;
-
-    case 'goTo':
-      if (params.page) {
-        page = Number(params.page);
-      }
-      break;
-
-    case 'totalItems':
-      if (params.totalItems) {
-        totalItems = Number(params.totalItems);
-      }
-      break;
-
-    case 'itemsPerPage':
-      if (params.itemsPerPage) {
-        itemsPerPage = Number(params.itemsPerPage);
-      }
-      break;
-
-    case 'maxPageItems':
-      if (params.maxPageItems) {
-        maxPageItems = Number(params.maxPageItems);
-      }
       break;
 
     case 'update':
@@ -72,9 +47,9 @@ export const usePagination = ({ getPageItemProps, ...initialData }) => {
   const [pagination, dispatch] = React.useReducer(paginationReducer, initialData, getPagination);
   const firstRender = React.useRef(true);
 
-  const setTotalItems = (totalItems) => dispatch({ type: 'totalItems', totalItems });
-  const setItemsPerPage = (itemsPerPage) => dispatch({ type: 'itemsPerPage', itemsPerPage });
-  const setMaxPageItems = (maxPageItems) => dispatch({ type: 'maxPageItems', maxPageItems });
+  const setTotalItems = (totalItems) => dispatch({ type: 'update', totalItems });
+  const setItemsPerPage = (itemsPerPage) => dispatch({ type: 'update', itemsPerPage });
+  const setMaxPageItems = (maxPageItems) => dispatch({ type: 'update', maxPageItems });
   const previous = () => dispatch(PREVIOUS_ACTION);
   const next = () => dispatch(NEXT_ACTION);
   const goTo = (page) => {
@@ -88,7 +63,7 @@ export const usePagination = ({ getPageItemProps, ...initialData }) => {
         break;
 
       default:
-        dispatch({ type: 'goTo', page });
+        dispatch({ type: 'update', page });
         break;
     }
   };
@@ -119,6 +94,7 @@ export const usePagination = ({ getPageItemProps, ...initialData }) => {
     pagination.maxPageItems,
     pagination.arrows,
     pagination.numbers,
+    getPageItemProps,
   ]);
 
   return {

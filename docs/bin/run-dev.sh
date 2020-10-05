@@ -4,7 +4,7 @@ set -ex
 
 cd ../
 
-npm link demo/node_modules/react
+npm link docs/node_modules/react
 
 cd -
 
