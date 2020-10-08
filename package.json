@@ -13,7 +13,7 @@
     "test": "jest",
     "test:watch": "npm run test -- --watchAll",
     "build": "rimraf dist && NODE_ENV=production rollup -c",
-    "release": "np"
+    "release": "npm run build && np"
   },
   "files": [
     "dist"
