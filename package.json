@@ -1,6 +1,6 @@
 {
   "name": "@lucasmogari/react-pagination",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Headless react hook for pagination",
   "main": "index.js",
   "module": "dist/react-pagination.mjs",
