@@ -2,12 +2,12 @@ import Highlight from '../components/Highlight';
 import Demo from '../components/Demo';
 import Header from '../components/Header';
 
-const Home = () => {
+const Home = ({ page }) => {
   return (
     <div className="sm:mx-auto p-2" style={{ maxWidth: 1024 }}>
       <Header />
       <main className="space-y-10 mb-16">
-        <Demo />
+        <Demo page={page} />
 
         <div>
           <h3>Install</h3>
@@ -25,7 +25,9 @@ yarn add @lucasmogari/react-pagination`}
 // page = group of items
 // page item = a pagination element (can be a page number or a gap)
 
+
 import usePagination from '@lucasmogari/react-pagination';
+
 
 // INPUT:
 
@@ -67,6 +69,7 @@ const {
   setMaxPageItems(maxPageItems),                    // update the maximum number of page items
 } = pagination;
 
+// getPageItem
 const {
   page,                 // the page correspondent to the page item
   props,                // component props
@@ -117,13 +120,11 @@ return (
 `}
           </Highlight>
         </div>
-
-        <div>
-          <h3>License</h3>@lucasmogari/react-pagination is available under the MIT License.
-        </div>
       </main>
 
-      <footer></footer>
+      <footer className="mb-8">
+        <h3>License</h3>@lucasmogari/react-pagination is available under the MIT License.
+      </footer>
     </div>
   );
 };

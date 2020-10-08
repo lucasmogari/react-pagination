@@ -23,11 +23,14 @@ export const getPageItemFactory = (pagination, goTo, getPageItemProps) => {
       return pageItem;
     }
 
+    let page
     if (pagination.arrows) {
       if (pageItemIndex === 0 || pageItemIndex === 'previous') {
+        page = pagination.page - 1;
         pageItem.page = 'previous';
         pageItem.disabled = pagination.page <= 1;
       } else if (pageItemIndex === size || pageItemIndex === 'next') {
+        page = pagination.page + 1;
         pageItem.page = 'next';
         pageItem.disabled = pagination.page >= pagination.totalPages;
       }
@@ -71,8 +74,8 @@ export const getPageItemFactory = (pagination, goTo, getPageItemProps) => {
         pageItem.current = true;
         pageItem.props['aria-current'] = 'true';
       }
+      page = pageItem.page;
     }
-    const page = pageItem.page;
     pageItem.props.onClick = (e) => {
       e.preventDefault();
       goTo(page);

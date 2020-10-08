@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "./bin/run-dev.sh",
+    "dev": "next dev",
     "build": "next build",
     "export": "next export",
     "start": "next start"

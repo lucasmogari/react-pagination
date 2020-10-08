@@ -31,7 +31,6 @@ const paginationReducer = (state, { type, ...params }) => {
     default:
       throw new Error(`Unknown action type ${type}`);
   }
-
   return page === state.page &&
     totalItems === state.totalItems &&
     itemsPerPage === state.itemsPerPage &&
@@ -46,10 +45,10 @@ const NEXT_ACTION = { type: 'next' };
 export const usePagination = ({ getPageItemProps, ...initialData }) => {
   const [pagination, dispatch] = React.useReducer(paginationReducer, initialData, getPagination);
   const firstRender = React.useRef(true);
-
-  const setTotalItems = (totalItems) => dispatch({ type: 'update', totalItems });
-  const setItemsPerPage = (itemsPerPage) => dispatch({ type: 'update', itemsPerPage });
-  const setMaxPageItems = (maxPageItems) => dispatch({ type: 'update', maxPageItems });
+  const UPDATE_ACTION = (params) => dispatch({ type: 'update', ...params });
+  const setTotalItems = (totalItems) => UPDATE_ACTION({ totalItems });
+  const setItemsPerPage = (itemsPerPage) => UPDATE_ACTION({ itemsPerPage });
+  const setMaxPageItems = (maxPageItems) => UPDATE_ACTION({ maxPageItems });
   const previous = () => dispatch(PREVIOUS_ACTION);
   const next = () => dispatch(NEXT_ACTION);
   const goTo = (page) => {
@@ -63,7 +62,7 @@ export const usePagination = ({ getPageItemProps, ...initialData }) => {
         break;
 
       default:
-        dispatch({ type: 'update', page });
+        UPDATE_ACTION({ page });
         break;
     }
   };
@@ -72,13 +71,7 @@ export const usePagination = ({ getPageItemProps, ...initialData }) => {
     if (firstRender.current) {
       firstRender.current = false;
     } else {
-      dispatch({
-        type: 'update',
-        page: initialData.page,
-        totalItems: initialData.totalItems,
-        itemsPerPage: initialData.itemsPerPage,
-        maxPageItems: initialData.maxPageItems,
-      });
+      UPDATE_ACTION(initialData);
     }
   }, [
     initialData.page,

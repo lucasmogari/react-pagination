@@ -4,9 +4,22 @@ import PreviousButton from './PreviousButton';
 import NextButton from './NextButton';
 import PageItemButton from './PageItemButton';
 import PageGap from './PageGap';
+import { useRouter } from 'next/router';
 
-const Demo = () => {
-  const pagination = usePagination({ page:2, itemsPerPage: 24, totalItems: 1000 });
+const Demo = ({ page }) => {
+  const router = useRouter();
+  const pagination = usePagination({
+    page: Number(page),
+    itemsPerPage: 24,
+    totalItems: 1000,
+    getPageItemProps: React.useCallback((pageItemIndex, page, props) => {
+      props.onClick = (e) => {
+        e.preventDefault();
+        router.push(`/page/${page}`);
+        // pagination.goTo(page);
+      };
+    }, []),
+  });
 
   return (
     <div>
@@ -54,7 +67,12 @@ const Demo = () => {
               id="page"
               value={pagination.page}
               style={{ width: 80 }}
-              onChange={(e) => pagination.goTo(e.target.value)}
+              onChange={(e) => {
+                const page = e.target.value;
+                if (page > 0 && page <= pagination.totalPages) {
+                  router.push(`/page/${page}`);
+                }
+              }}
             />{' '}
             of {pagination.totalPages}
           </p>
@@ -125,7 +143,7 @@ const Demo = () => {
                     className="w-16"
                     onClick={(e) => {
                       e.preventDefault();
-                      pagination.goTo(page);
+                      router.push(`/page/${page}`);
                     }}
                   />
                 </li>
