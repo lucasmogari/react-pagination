@@ -1,6 +1,17 @@
 import { readFileSync } from 'fs';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { join } from 'path';
+import { getPageFiles } from 'next/dist/next-server/server/get-page-files';
+
+function getDocumentFiles(buildManifest, pathname) {
+  const sharedFiles = getPageFiles(buildManifest, '/_app');
+  const pageFiles = pathname !== '/_error' ? getPageFiles(buildManifest, pathname) : [];
+  return {
+    sharedFiles,
+    pageFiles,
+    allFiles: [...new Set([...sharedFiles, ...pageFiles])],
+  };
+}
 
 class InlineStylesHead extends Head {
   getCssLinks() {
@@ -8,10 +19,12 @@ class InlineStylesHead extends Head {
   }
 
   __getInlineStyles() {
-    const { assetPrefix, files } = this.context;
-    if (!files || files.length === 0) return null;
+    const { assetPrefix } = this.context;
+    const files = getDocumentFiles(this.context.buildManifest, this.context.__NEXT_DATA__.page);
+    console.log(files);
+    if (!files || files.allFiles.length === 0) return null;
 
-    return files
+    return files.allFiles
       .filter((file) => /\.css$/.test(file))
       .map((file) => (
         <style
