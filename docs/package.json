@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@lucasmogari/react-pagination": "^1.0.0",
+    "@lucasmogari/react-pagination": "^1.0.1",
     "classnames": "^2.2.6",
     "highlight.js": "^10.1.2",
     "next": "^9.5.4-canary.23",

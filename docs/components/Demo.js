@@ -6,17 +6,24 @@ import PageItemButton from './PageItemButton';
 import PageGap from './PageGap';
 import { useRouter } from 'next/router';
 
-const Demo = ({ page }) => {
+const Demo = ({ page = 1 }) => {
+  // You only need to keep track os these states if you want to change the pagination state automatically.
+  // Otherwise, use the functions returned from usePagination to change the state programmatically.
+  // const [page, setPage] = React.useState(Number(initialPage))
+  const [totalItems, setTotalItems] = React.useState(1000)
+  const [itemsPerPage, setItemsPerPage] = React.useState(24)
+  const [maxPageItems, setMaxPageItems] = React.useState(7)
+
   const router = useRouter();
   const pagination = usePagination({
     page: Number(page),
-    itemsPerPage: 24,
-    totalItems: 1000,
+    totalItems,
+    itemsPerPage,
+    maxPageItems,
     getPageItemProps: React.useCallback((pageItemIndex, page, props) => {
       props.onClick = (e) => {
         e.preventDefault();
         router.push(`/page/${page}`);
-        // pagination.goTo(page);
       };
     }, []),
   });
@@ -33,7 +40,7 @@ const Demo = ({ page }) => {
               type="number"
               value={pagination.totalItems}
               style={{ width: 80 }}
-              onChange={(e) => pagination.setTotalItems(e.target.value)}
+              onChange={(e) => setTotalItems(e.target.value)}
             />
           </label>
           <label className="block">
@@ -43,7 +50,7 @@ const Demo = ({ page }) => {
               type="number"
               value={pagination.itemsPerPage}
               style={{ width: 80 }}
-              onChange={(e) => pagination.setItemsPerPage(e.target.value)}
+              onChange={(e) => setItemsPerPage(e.target.value)}
             />
           </label>
           <label className="block">
@@ -53,7 +60,7 @@ const Demo = ({ page }) => {
               type="number"
               value={pagination.maxPageItems}
               style={{ width: 80 }}
-              onChange={(e) => pagination.setMaxPageItems(e.target.value)}
+              onChange={(e) => setMaxPageItems(e.target.value)}
             />
           </label>
         </div>
