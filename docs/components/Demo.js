@@ -10,9 +10,9 @@ const Demo = ({ page = 1 }) => {
   // You only need to keep track os these states if you want to change the pagination state automatically.
   // Otherwise, use the functions returned from usePagination to change the state programmatically.
   // const [page, setPage] = React.useState(Number(initialPage))
-  const [totalItems, setTotalItems] = React.useState(1000)
-  const [itemsPerPage, setItemsPerPage] = React.useState(24)
-  const [maxPageItems, setMaxPageItems] = React.useState(7)
+  const [totalItems, setTotalItems] = React.useState(1000);
+  const [itemsPerPage, setItemsPerPage] = React.useState(24);
+  const [maxPageItems, setMaxPageItems] = React.useState(7);
 
   const router = useRouter();
   const pagination = usePagination({
@@ -23,7 +23,7 @@ const Demo = ({ page = 1 }) => {
     getPageItemProps: React.useCallback((pageItemIndex, page, props) => {
       props.onClick = (e) => {
         e.preventDefault();
-        router.push(`/page/${page}`);
+        router.push(page === 1 ? '/' : `/page/${page}`);
       };
     }, []),
   });

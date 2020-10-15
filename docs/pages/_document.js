@@ -21,7 +21,6 @@ class InlineStylesHead extends Head {
   __getInlineStyles() {
     const { assetPrefix } = this.context;
     const files = getDocumentFiles(this.context.buildManifest, this.context.__NEXT_DATA__.page);
-    console.log(files);
     if (!files || files.allFiles.length === 0) return null;
 
     return files.allFiles

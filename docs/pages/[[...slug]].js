@@ -1,27 +1,41 @@
 import Highlight from '../components/Highlight';
 import Demo from '../components/Demo';
 import Header from '../components/Header';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
 
-const Home = ({ page }) => {
+const Home = () => {
+  const router = useRouter();
+  if (router.asPath === '/[[...slug]]') {
+    return null;
+  }
+
+  const { slug } = router.query;
+  const page = slug?.length === 2 && slug[0] === 'page' ? parseInt(slug[1], 10) : 1;
+
   return (
-    <div className="sm:mx-auto p-2" style={{ maxWidth: 1024 }}>
-      <Header />
-      <main className="space-y-10 mb-16">
-        <Demo page={page} />
+    <>
+      <Head>
+        <title>{page > 1 ? `Page ${page} - ` : ''}React Pagination</title>
+      </Head>
+      <div className="sm:mx-auto p-2" style={{ maxWidth: 1024 }}>
+        <Header />
+        <main className="space-y-10 mb-16">
+          <Demo page={page} />
 
-        <div>
-          <h3>Install</h3>
-          <Highlight language="bash">
-            {`npm install @lucasmogari/react-pagination --save
+          <div>
+            <h3>Install</h3>
+            <Highlight language="bash">
+              {`npm install @lucasmogari/react-pagination --save
 # or 
 yarn add @lucasmogari/react-pagination`}
-          </Highlight>
-        </div>
+            </Highlight>
+          </div>
 
-        <div>
-          <h3>Usage</h3>
-          <Highlight language="javascript">
-            {`// item = unit that is paginated
+          <div>
+            <h3>Usage</h3>
+            <Highlight language="javascript">
+              {`// item = unit that is paginated
 // page = group of items
 // page item = a pagination element (can be a page number or a gap)
 
@@ -77,13 +91,13 @@ const {
   current,              // indicate if the page item is the current page
 } = getPageItem(page ITEM);
 `}
-          </Highlight>
-        </div>
+            </Highlight>
+          </div>
 
-        <div>
-          <h3>Example</h3>
-          <Highlight language="javascript">
-            {`const {
+          <div>
+            <h3>Example</h3>
+            <Highlight language="javascript">
+              {`const {
   fromItem,
   toItem,
   totalItems,
@@ -118,14 +132,15 @@ return (
   </div>
 );
 `}
-          </Highlight>
-        </div>
-      </main>
+            </Highlight>
+          </div>
+        </main>
 
-      <footer className="mb-8">
-        <h3>License</h3>@lucasmogari/react-pagination is available under the MIT License.
-      </footer>
-    </div>
+        <footer className="mb-8">
+          <h3>License</h3>@lucasmogari/react-pagination is available under the MIT License.
+        </footer>
+      </div>
+    </>
   );
 };
 
