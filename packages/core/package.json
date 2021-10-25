@@ -11,7 +11,7 @@
       "require": "./dist/react-pagination.umd.js"
     }
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Headless react hook for pagination",
   "author": "Lucas Mogari <lucas@mogari.com.br>",
   "license": "MIT",
@@ -22,7 +22,8 @@
     "test": "jest",
     "test:watch": "npm run test -- --watchAll",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "release": "npm run build && np"
   },
   "peerDependencies": {
     "react": "^17.0.0"
@@ -35,6 +36,7 @@
     "@testing-library/react-hooks": "^7.0.2",
     "@vitejs/plugin-react": "^1.0.0",
     "jest": "^27.3.1",
+    "np": "^7.5.0",
     "react-test-renderer": "^17.0.2",
     "vite": "^2.6.4"
   }
