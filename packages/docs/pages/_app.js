@@ -15,17 +15,6 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>React Pagination</title>
         <meta name="description" content="Headless react hook for pagination" />
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176253904-1"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-176253904-1');`,
-          }}
-        />
       </Head>
       <Component {...pageProps} />
     </>
