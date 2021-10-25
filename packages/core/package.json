@@ -11,12 +11,13 @@
       "require": "./dist/react-pagination.umd.js"
     }
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Headless react hook for pagination",
   "author": "Lucas Mogari <lucas@mogari.com.br>",
   "license": "MIT",
   "repository": "lucasmogari/react-pagination",
   "homepage": "https://react-pagination.mogari.com.br/",
+  "keywords": ["react", "pagination"],
   "scripts": {
     "dev": "vite",
     "test": "jest",
