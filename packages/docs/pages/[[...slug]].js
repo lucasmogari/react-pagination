@@ -1,8 +1,9 @@
-import Highlight from '../components/Highlight';
+import usePagination from '@lucasmogari/react-pagination';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Demo from '../components/Demo';
 import Header from '../components/Header';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
+import Highlight from '../components/Highlight';
 
 const Home = () => {
   const router = useRouter();
@@ -18,13 +19,13 @@ const Home = () => {
       <Head>
         <title>{page > 1 ? `Page ${page} - ` : ''}React Pagination</title>
       </Head>
-      <div className="sm:mx-auto p-2" style={{ maxWidth: 1024 }}>
+      <div className="p-2 sm:mx-auto" style={{ maxWidth: 1024 }}>
         <Header />
-        <main className="space-y-10 mb-16">
+        <main className="mb-16 space-y-10">
           <Demo page={page} />
 
           <div>
-            <h3>Install</h3>
+            <h3 className="text-xl">Install</h3>
             <Highlight language="bash">
               {`npm install @lucasmogari/react-pagination --save
 # or 
@@ -33,7 +34,7 @@ yarn add @lucasmogari/react-pagination`}
           </div>
 
           <div>
-            <h3>Usage</h3>
+            <h3 className="text-xl">Usage</h3>
             <Highlight language="javascript">
               {`// item = unit that is paginated
 // page = group of items
@@ -95,9 +96,16 @@ const {
           </div>
 
           <div>
-            <h3>Example</h3>
-            <Highlight language="javascript">
-              {`const {
+            <h3 className="mb-1 text-xl">Example</h3>
+            <p className="mb-2">
+              A list with 100 items, with each page containing 24 items. It will be created 5 pages
+              and the last one will have the last 4 items.
+            </p>
+            <div className="mb-4">
+              <h4>Code</h4>
+              <Highlight language="javascript">
+                {`const {
+  page: currentPage,
   fromItem,
   toItem,
   totalItems,
@@ -105,11 +113,19 @@ const {
   size,
 } = usePagination({
   totalItems: 100,
-  page: 1,            // default
-  itemsPerPage: 24,   // default
-  maxPageItems: 7,    // default
-  numbers: true,      // default
-  arrows: true,       // default
+  page: 1,            // default value
+  itemsPerPage: 24,   // default value
+  maxPageItems: 7,    // default value
+  numbers: true,      // default value
+  arrows: true,       // default value
+  getPageItemProps: (pageItemIndex, page, props) => {
+    const defaultOnClick = props.onClick;
+    // Overwriting onClick
+    props.onClick = (e) => {
+      console.log({ pageItemIndex, page, props });
+      defaultOnClick(e);
+    };
+  },
 });
 
 return (
@@ -117,12 +133,17 @@ return (
     <p>
       Items {fromItem}-{toItem} of {totalItems}
     </p>
-    <ul style={{ display: 'flex' }}>
+    <ul style={{ display: 'flex', listStyle: 'none' }}>
       {[...Array(size)].map((_, i) => {
         const { page, props } = getPageItem(i);
         return (
           <li key={i}>
-            <button {...props} style={{ margin: '.5rem' }}>
+            <button
+              {...props}
+              style={{
+                margin: '.5rem',
+                fontWeight: page === currentPage ? 'bold' : null
+              }}>
               {page}
             </button>
           </li>
@@ -132,7 +153,12 @@ return (
   </div>
 );
 `}
-            </Highlight>
+              </Highlight>
+            </div>
+            <h4>Live</h4>
+            <div className="p-2 space-y-2 rounded shadow">
+              <Example />
+            </div>
           </div>
         </main>
 
@@ -141,6 +167,57 @@ return (
         </footer>
       </div>
     </>
+  );
+};
+
+const Example = () => {
+  const {
+    page: currentPage,
+    fromItem,
+    toItem,
+    totalItems,
+    getPageItem,
+    size,
+  } = usePagination({
+    totalItems: 100,
+    page: 1, // default value
+    itemsPerPage: 24, // default value
+    maxPageItems: 7, // default value
+    numbers: true, // default value
+    arrows: true, // default value
+    getPageItemProps: (pageItemIndex, page, props) => {
+      const defaultOnClick = props.onClick;
+      // Overwriting onClick
+      props.onClick = (e) => {
+        console.log({ pageItemIndex, page, props });
+        defaultOnClick(e);
+      };
+    },
+  });
+
+  return (
+    <div>
+      <p>
+        Items {fromItem}-{toItem} of {totalItems}
+      </p>
+      <ul style={{ display: 'flex', listStyle: 'none' }}>
+        {[...Array(size)].map((_, i) => {
+          const { page, props } = getPageItem(i);
+          return (
+            <li key={i}>
+              <button
+                {...props}
+                style={{
+                  margin: '.5rem',
+                  fontWeight: page === currentPage ? 'bold' : null,
+                }}>
+                {page}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 

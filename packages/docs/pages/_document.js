@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { join } from 'path';
-import { getPageFiles } from 'next/dist/next-server/server/get-page-files';
+import { getPageFiles } from 'next/dist/server/get-page-files';
 
 function getDocumentFiles(buildManifest, pathname) {
   const sharedFiles = getPageFiles(buildManifest, '/_app');
