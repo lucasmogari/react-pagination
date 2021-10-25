@@ -14,6 +14,6 @@ yarn add @lucasmogari/react-pagination
 
 ### Demo
 
-https://react-pagination.mogari.co/
+https://react-pagination.mogari.co
 
 ![](demo.gif)
