@@ -27,7 +27,7 @@
     "release": "npm run build && np"
   },
   "peerDependencies": {
-    "react": "^17.0.0"
+    "react": "^16.0.0 || ^17.0.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.15.4",
