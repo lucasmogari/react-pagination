@@ -1,0 +1,41 @@
+{
+  "name": "@lucasmogari/react-pagination",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/react-pagination.umd.js",
+  "module": "./dist/react-pagination.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/react-pagination.es.js",
+      "require": "./dist/react-pagination.umd.js"
+    }
+  },
+  "version": "1.0.2",
+  "description": "Headless react hook for pagination",
+  "author": "Lucas Mogari <lucas@mogari.com.br>",
+  "license": "MIT",
+  "repository": "lucasmogari/react-pagination",
+  "homepage": "https://react-pagination.vercel.app/",
+  "scripts": {
+    "dev": "vite",
+    "test": "jest",
+    "test:watch": "npm run test -- --watchAll",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.15.4",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@vitejs/plugin-react": "^1.0.0",
+    "jest": "^27.3.1",
+    "react-test-renderer": "^17.0.2",
+    "vite": "^2.6.4"
+  }
+}

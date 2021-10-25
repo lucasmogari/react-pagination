@@ -11,22 +11,20 @@
   "dependencies": {
     "@lucasmogari/react-pagination": "^1.0.2",
     "classnames": "^2.2.6",
-    "highlight.js": "^10.1.2",
-    "next": "^9.5.4-canary.23",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "highlight.js": "^11.3.1",
+    "next": "^11.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "reakit": "^1.2.2"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^9.5.2",
-    "@tailwindcss/custom-forms": "^0.2.1",
+    "@next/bundle-analyzer": "^11.1.2",
+    "@tailwindcss/forms": "^0.3.4",
     "next-compose-plugins": "^2.2.0",
-    "postcss-flexbugs-fixes": "^4.2.1",
-    "postcss-import": "^12.0.1",
+    "postcss": "^8.3.11",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^14.0.2",
     "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "^1.7.3"
-  },
-  "resolutions": {
-    "webpack": "^5.0.0-rc.3"
+    "tailwindcss": "^2.2.17"
   }
 }

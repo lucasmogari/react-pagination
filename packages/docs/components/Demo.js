@@ -1,10 +1,12 @@
 import usePagination from '@lucasmogari/react-pagination';
+import { useRouter } from 'next/router';
+import React from 'react';
+import NextButton from './NextButton';
+import PageGap from './PageGap';
+import PageItemButton from './PageItemButton';
 import Pagination, { RootPagination } from './Pagination';
 import PreviousButton from './PreviousButton';
-import NextButton from './NextButton';
-import PageItemButton from './PageItemButton';
-import PageGap from './PageGap';
-import { useRouter } from 'next/router';
+import Input from './Input';
 
 const Demo = ({ page = 1 }) => {
   // You only need to keep track os these states if you want to change the pagination state automatically.
@@ -30,34 +32,31 @@ const Demo = ({ page = 1 }) => {
 
   return (
     <div>
-      <h3>Demo</h3>
+      <h3 className="text-xl">Demo</h3>
       <div className="space-y-4">
         <div className="flex space-x-2">
           <label className="block">
-            <span className="text-gray-700 mr-2">Total items</span>
-            <input
-              className="form-input mt-1 block"
-              type="number"
+            <span className="mr-2 text-gray-700">Total items</span>
+            <Input
+              className="block"
               value={pagination.totalItems}
               style={{ width: 80 }}
               onChange={(e) => setTotalItems(e.target.value)}
             />
           </label>
           <label className="block">
-            <span className="text-gray-700 mr-2">Items per page</span>
-            <input
-              className="form-input mt-1 block"
-              type="number"
+            <span className="mr-2 text-gray-700">Items per page</span>
+            <Input
+              className="block"
               value={pagination.itemsPerPage}
               style={{ width: 80 }}
               onChange={(e) => setItemsPerPage(e.target.value)}
             />
           </label>
           <label className="block">
-            <span className="text-gray-700 mr-2">Max. page items</span>
-            <input
-              className="form-input mt-1 block"
-              type="number"
+            <span className="mr-2 text-gray-700">Max. page items</span>
+            <Input
+              className="block"
               value={pagination.maxPageItems}
               style={{ width: 80 }}
               onChange={(e) => setMaxPageItems(e.target.value)}
@@ -65,12 +64,10 @@ const Demo = ({ page = 1 }) => {
           </label>
         </div>
 
-        <div className="space-y-2 p-2 rounded shadow">
+        <div className="p-2 space-y-2 rounded shadow">
           <p className="">
             <label htmlFor="page">Page</label>{' '}
-            <input
-              className="form-input"
-              type="number"
+            <Input
               id="page"
               value={pagination.page}
               style={{ width: 80 }}
