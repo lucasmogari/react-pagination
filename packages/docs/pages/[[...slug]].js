@@ -5,15 +5,10 @@ import Demo from '../components/Demo';
 import Header from '../components/Header';
 import Highlight from '../components/Highlight';
 
-const Home = () => {
-  const router = useRouter();
-  if (router.asPath === '/[[...slug]]') {
+const Home = ({ page }) => {
+  if (!page) {
     return null;
   }
-
-  const { slug } = router.query;
-  const page = slug?.length === 2 && slug[0] === 'page' ? parseInt(slug[1], 10) : 1;
-
   return (
     <>
       <Head>
@@ -230,8 +225,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
+  const { slug } = context.params;
+  const page = slug?.length === 2 && slug[0] === 'page' ? parseInt(slug[1], 10) : 1;
+
   return {
-    props: {},
+    props: {
+      page
+    },
   };
 }
 
