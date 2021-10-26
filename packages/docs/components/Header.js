@@ -14,8 +14,7 @@ const StringPagination = ({ start = 1, string, pagination }) =>
         key={i}
         current={pagination.page === page}
         page={string.charAt(i)}
-        // style={{ paddingLeft: 10, paddingRight: 10 }}
-        className="px-8px sm:px-3"
+        className="w-12 h-12 mb-4 text-xl italic font-semibold"
         onClick={(e) => {
           e.preventDefault();
           pagination.goTo(page);
@@ -28,22 +27,30 @@ const Header = () => {
   const pagination = usePagination({ itemsPerPage: 1, totalItems: 15 });
 
   return (
-    <header className="my-10 text-center">
+    <header className="my-10 -mx-4 text-center">
       <VisuallyHidden>
         <h1>react-pagination</h1>
       </VisuallyHidden>
-      <div className="space-x-1 inline-flex flex-wrap items-center mb-4">
+      <div className="inline-flex flex-wrap items-center justify-center space-x-1">
         <div className="flex items-center">
-          <PreviousButton {...pagination.getPageItem('previous').props} label="" />
+          <PreviousButton
+            {...pagination.getPageItem('previous').props}
+            className="w-12 h-12 mb-4"
+            label=""
+          />
 
           <StringPagination string="react" pagination={pagination} />
 
           <PageGap />
         </div>
 
-        <div className="flex items-center">
+        <div className="flex flex-wrap items-center">
           <StringPagination start={6} string="pagination" pagination={pagination} />
-          <NextButton {...pagination.getPageItem('next').props} label="" />
+          <NextButton
+            {...pagination.getPageItem('next').props}
+            className="w-12 h-12 mb-4"
+            label=""
+          />
         </div>
       </div>
       <br />
@@ -51,7 +58,7 @@ const Header = () => {
         <h2 className="text-gray-700">Headless react hook for pagination</h2>
         <a
           href="https://github.com/lucasmogari/react-pagination"
-          className="w-5 inline-block sm:ml-4 hover:text-blue-700">
+          className="inline-block w-5 sm:ml-4 hover:text-blue-700">
           <VisuallyHidden>Github</VisuallyHidden>
           <svg
             aria-hidden="true"

@@ -19,13 +19,13 @@ const Home = () => {
       <Head>
         <title>{page > 1 ? `Page ${page} - ` : ''}React Pagination</title>
       </Head>
-      <div className="p-2 sm:mx-auto" style={{ maxWidth: 1024 }}>
+      <div className="p-4 sm:mx-auto" style={{ maxWidth: 1024 }}>
         <Header />
         <main className="mb-16 space-y-10">
           <Demo page={page} />
 
           <div>
-            <h3 className="text-xl">Install</h3>
+            <h3 className="mb-1 text-xl">Install</h3>
             <Highlight language="bash">
               {`npm install @lucasmogari/react-pagination --save
 # or 
@@ -34,7 +34,7 @@ yarn add @lucasmogari/react-pagination`}
           </div>
 
           <div>
-            <h3 className="text-xl">Usage</h3>
+            <h3 className="mb-1 text-xl">Usage</h3>
             <Highlight language="javascript">
               {`// item = unit that is paginated
 // page = group of items
@@ -163,7 +163,8 @@ return (
         </main>
 
         <footer className="mb-8">
-          <h3>License</h3>@lucasmogari/react-pagination is available under the MIT License.
+          <h3 className="mb-1 text-xl">License</h3>@lucasmogari/react-pagination is available under
+          the MIT License.
         </footer>
       </div>
     </>
@@ -220,5 +221,18 @@ const Example = () => {
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { slug: undefined } }],
+    fallback: true,
+  };
+}
+
+export async function getStaticProps(context) {
+  return {
+    props: {},
+  };
+}
 
 export default Home;

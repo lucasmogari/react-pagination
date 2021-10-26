@@ -25,7 +25,11 @@ const Demo = ({ page = 1 }) => {
     getPageItemProps: React.useCallback((pageItemIndex, page, props) => {
       props.onClick = (e) => {
         e.preventDefault();
-        router.push(page === 1 ? '/' : `/page/${page}`);
+        e.target.blur();
+        router.push(page === 1 ? '/' : `/page/${page}`, undefined, {
+          scroll: false,
+          shallow: true,
+        });
       };
     }, []),
   });
@@ -34,8 +38,8 @@ const Demo = ({ page = 1 }) => {
     <div>
       <h3 className="text-xl">Demo</h3>
       <div className="space-y-4">
-        <div className="flex space-x-2">
-          <label className="block">
+        <div className="flex flex-wrap">
+          <label className="block mb-4 mr-4">
             <span className="mr-2 text-gray-700">Total items</span>
             <Input
               className="block"
@@ -44,7 +48,7 @@ const Demo = ({ page = 1 }) => {
               onChange={(e) => setTotalItems(e.target.value)}
             />
           </label>
-          <label className="block">
+          <label className="block mb-4 mr-4">
             <span className="mr-2 text-gray-700">Items per page</span>
             <Input
               className="block"
@@ -53,7 +57,7 @@ const Demo = ({ page = 1 }) => {
               onChange={(e) => setItemsPerPage(e.target.value)}
             />
           </label>
-          <label className="block">
+          <label className="block mb-4 mr-4">
             <span className="mr-2 text-gray-700">Max. page items</span>
             <Input
               className="block"
@@ -62,30 +66,29 @@ const Demo = ({ page = 1 }) => {
               onChange={(e) => setMaxPageItems(e.target.value)}
             />
           </label>
+          <label className="block mb-4 mr-4">
+            <span className="mr-2 text-gray-700">
+              Items {pagination.fromItem}-{pagination.toItem} of {pagination.totalItems}
+            </span>
+            <p className="">
+              <label htmlFor="page">Page</label>{' '}
+              <Input
+                id="page"
+                value={pagination.page}
+                style={{ width: 80 }}
+                onChange={(e) => {
+                  const page = e.target.value;
+                  if (page > 0 && page <= pagination.totalPages) {
+                    router.push(`/page/${page}`, undefined, { scroll: false, shallow: true });
+                  }
+                }}
+              />{' '}
+              of {pagination.totalPages}
+            </p>
+          </label>
         </div>
 
-        <div className="p-2 space-y-2 rounded shadow">
-          <p className="">
-            <label htmlFor="page">Page</label>{' '}
-            <Input
-              id="page"
-              value={pagination.page}
-              style={{ width: 80 }}
-              onChange={(e) => {
-                const page = e.target.value;
-                if (page > 0 && page <= pagination.totalPages) {
-                  router.push(`/page/${page}`);
-                }
-              }}
-            />{' '}
-            of {pagination.totalPages}
-          </p>
-          <p>
-            Items {pagination.fromItem}-{pagination.toItem} of {pagination.totalItems}
-          </p>
-        </div>
-
-        <div className="p-2 rounded shadow">
+        <div className="p-2 rounded shadow-none sm:shadow">
           <h4>Arrows only</h4>
           <RootPagination
             className="flex items-center space-x-1"
@@ -102,7 +105,7 @@ const Demo = ({ page = 1 }) => {
           />
         </div>
 
-        <div className="p-2 rounded shadow">
+        <div className="p-2 rounded shadow-none sm:shadow">
           <h4>Numbers only</h4>
           <RootPagination
             className="flex flex-wrap items-center space-x-1"
@@ -127,12 +130,12 @@ const Demo = ({ page = 1 }) => {
           />
         </div>
 
-        <div className="p-2 rounded shadow">
+        <div className="p-2 rounded shadow-none sm:shadow">
           <h4>Arrows and numbers</h4>
           <Pagination className="flex flex-wrap items-center space-x-1" pagination={pagination} />
         </div>
 
-        <div className="p-2 rounded shadow">
+        <div className="p-2 rounded shadow-none sm:shadow">
           <h4>Infinity</h4>
           <RootPagination
             className="flex flex-wrap items-center"
@@ -147,7 +150,7 @@ const Demo = ({ page = 1 }) => {
                     className="w-16"
                     onClick={(e) => {
                       e.preventDefault();
-                      router.push(`/page/${page}`);
+                      router.push(`/page/${page}`, undefined, { scroll: false, shallow: true });
                     }}
                   />
                 </li>

@@ -1,8 +1,11 @@
 import classnames from 'classnames';
 import PageItemButton from './PageItemButton';
 
-const NextButton = ({ ariaLabel = 'Next', label = 'Next', ...props }) => (
-  <PageItemButton {...props} aria-label={ariaLabel} className="flex items-center text-blue-700">
+const NextButton = ({ ariaLabel = 'Next', className, label = 'Next', ...props }) => (
+  <PageItemButton
+    {...props}
+    aria-label={ariaLabel}
+    className={classnames(className, 'flex items-center text-blue-700')}>
     {label}
     <svg
       className={classnames('w-2 h-3', { 'ml-2': label })}
