@@ -219,7 +219,7 @@ const Example = () => {
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { slug: undefined } }],
+    paths: [{ params: { slug: [] } }],
     fallback: true,
   };
 }
@@ -230,7 +230,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      page
+      page,
     },
   };
 }

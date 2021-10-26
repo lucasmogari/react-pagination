@@ -28,7 +28,6 @@ const Demo = ({ page = 1 }) => {
         e.target.blur();
         router.push(page === 1 ? '/' : `/page/${page}`, undefined, {
           scroll: false,
-          shallow: true,
         });
       };
     }, []),
@@ -79,7 +78,7 @@ const Demo = ({ page = 1 }) => {
                 onChange={(e) => {
                   const page = e.target.value;
                   if (page > 0 && page <= pagination.totalPages) {
-                    router.push(`/page/${page}`, undefined, { scroll: false, shallow: true });
+                    router.push(`/page/${page}`, undefined, { scroll: false });
                   }
                 }}
               />{' '}
@@ -150,7 +149,7 @@ const Demo = ({ page = 1 }) => {
                     className="w-16"
                     onClick={(e) => {
                       e.preventDefault();
-                      router.push(`/page/${page}`, undefined, { scroll: false, shallow: true });
+                      router.push(`/page/${page}`, undefined, { scroll: false });
                     }}
                   />
                 </li>
