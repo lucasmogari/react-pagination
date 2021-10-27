@@ -26,11 +26,11 @@ const Demo = ({ page = 1 }) => {
       props.onClick = (e) => {
         e.preventDefault();
         e.target.blur();
-        router.push(page === 1 ? '/' : `/page/${page}`, undefined, {
+        router.push(page === 1 ? '/' : `/page/${page}`, null, {
           scroll: false,
         });
       };
-    }, []),
+    }, [router]),
   });
 
   return (
@@ -78,7 +78,7 @@ const Demo = ({ page = 1 }) => {
                 onChange={(e) => {
                   const page = e.target.value;
                   if (page > 0 && page <= pagination.totalPages) {
-                    router.push(`/page/${page}`, undefined, { scroll: false });
+                    router.push(`/page/${page}`, null, { scroll: false });
                   }
                 }}
               />{' '}
@@ -149,7 +149,7 @@ const Demo = ({ page = 1 }) => {
                     className="w-16"
                     onClick={(e) => {
                       e.preventDefault();
-                      router.push(`/page/${page}`, undefined, { scroll: false });
+                      router.push(`/page/${page}`, null, { scroll: false });
                     }}
                   />
                 </li>

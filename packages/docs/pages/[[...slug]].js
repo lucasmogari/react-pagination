@@ -1,9 +1,60 @@
 import usePagination from '@lucasmogari/react-pagination';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Demo from '../components/Demo';
 import Header from '../components/Header';
 import Highlight from '../components/Highlight';
+
+const Example = () => {
+  const {
+    page: currentPage,
+    fromItem,
+    toItem,
+    totalItems,
+    getPageItem,
+    size,
+  } = usePagination({
+    totalItems: 100,
+    page: 1, // default value
+    itemsPerPage: 24, // default value
+    maxPageItems: 7, // default value
+    numbers: true, // default value
+    arrows: true, // default value
+    getPageItemProps: (pageItemIndex, page, props) => {
+      const defaultOnClick = props.onClick;
+      // Overwriting onClick
+      props.onClick = (e) => {
+        console.log({ pageItemIndex, page, props });
+        defaultOnClick(e);
+      };
+    },
+  });
+
+  return (
+    <div>
+      <p>
+        Items {fromItem}-{toItem} of {totalItems}
+      </p>
+      <ul style={{ display: 'flex', listStyle: 'none' }}>
+        {[...Array(size)].map((_, i) => {
+          const { page, props } = getPageItem(i);
+          return (
+            <li key={i}>
+              <button
+                {...props}
+                style={{
+                  margin: '.5rem',
+                  padding: '1rem',
+                  fontWeight: page === currentPage ? 'bold' : null,
+                }}>
+                {page}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
 
 const Home = ({ page }) => {
   if (!page) {
@@ -137,6 +188,7 @@ return (
               {...props}
               style={{
                 margin: '.5rem',
+                padding: '1rem',
                 fontWeight: page === currentPage ? 'bold' : null
               }}>
               {page}
@@ -163,57 +215,6 @@ return (
         </footer>
       </div>
     </>
-  );
-};
-
-const Example = () => {
-  const {
-    page: currentPage,
-    fromItem,
-    toItem,
-    totalItems,
-    getPageItem,
-    size,
-  } = usePagination({
-    totalItems: 100,
-    page: 1, // default value
-    itemsPerPage: 24, // default value
-    maxPageItems: 7, // default value
-    numbers: true, // default value
-    arrows: true, // default value
-    getPageItemProps: (pageItemIndex, page, props) => {
-      const defaultOnClick = props.onClick;
-      // Overwriting onClick
-      props.onClick = (e) => {
-        console.log({ pageItemIndex, page, props });
-        defaultOnClick(e);
-      };
-    },
-  });
-
-  return (
-    <div>
-      <p>
-        Items {fromItem}-{toItem} of {totalItems}
-      </p>
-      <ul style={{ display: 'flex', listStyle: 'none' }}>
-        {[...Array(size)].map((_, i) => {
-          const { page, props } = getPageItem(i);
-          return (
-            <li key={i}>
-              <button
-                {...props}
-                style={{
-                  margin: '.5rem',
-                  fontWeight: page === currentPage ? 'bold' : null,
-                }}>
-                {page}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
   );
 };
 
