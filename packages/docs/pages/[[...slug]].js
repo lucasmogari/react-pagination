@@ -1,5 +1,6 @@
 import usePagination from '@lucasmogari/react-pagination';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Demo from '../components/Demo';
 import Header from '../components/Header';
 import Highlight from '../components/Highlight';
@@ -56,10 +57,22 @@ const Example = () => {
   );
 };
 
-const Home = ({ page }) => {
+const Home = (props) => {
+  const router = useRouter();
+
+  const { page } = props;
   if (!page) {
     return null;
   }
+
+  const { slug } = router.query;
+  if (slug?.length === 2) {
+    const slugPage = parseInt(slug[1]);
+    if (slugPage !== page) {
+      page = slugPage;
+    }
+  }
+
   return (
     <>
       <Head>
