@@ -35,7 +35,7 @@ const Example = () => {
       <p>
         Items {fromItem}-{toItem} of {totalItems}
       </p>
-      <ul style={{ display: 'flex', listStyle: 'none' }}>
+      <ul style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none' }}>
         {[...Array(size)].map((_, i) => {
           const { page, props } = getPageItem(i);
           return (
@@ -66,11 +66,16 @@ const Home = (props) => {
   }
 
   const { slug } = router.query;
-  if (slug?.length === 2) {
-    const slugPage = parseInt(slug[1]);
-    if (slugPage !== page) {
-      page = slugPage;
+  let slugPage;
+  if (slug) {
+    if (slug.length === 2) {
+      slugPage = parseInt(slug[1]);
     }
+  } else {
+    slugPage = 1;
+  }
+  if (slugPage !== page) {
+    page = slugPage;
   }
 
   return (
@@ -216,7 +221,7 @@ return (
               </Highlight>
             </div>
             <h4>Live</h4>
-            <div className="p-2 space-y-2 rounded shadow">
+            <div className="p-2 rounded shadow">
               <Example />
             </div>
           </div>
