@@ -1,7 +1,31 @@
-export const getPageItemFactory = (pagination, goTo, getPageItemProps) => {
+import {
+  GetPageItemFunction,
+  GetPageItemPropsFunction,
+  GoToPageFunction,
+  Page,
+  PageItem,
+  Pagination,
+} from './types';
+
+export enum PageActionType {
+  'previous' = 'previous',
+  'next' = 'next',
+  'update' = 'update',
+}
+
+export const getPageItemFactory = (
+  pagination: Pagination,
+  goTo?: GoToPageFunction,
+  getPageItemProps?: GetPageItemPropsFunction
+): GetPageItemFunction => {
   const size = pagination.size - 1;
   let maxPageItems = pagination.maxPageItems;
-  let boundaryCount, lowerBoundary, upperBoundary, upperStart, middleStart, penultimatePageItem;
+  let boundaryCount: number,
+    lowerBoundary: number,
+    upperBoundary: number,
+    upperStart: number,
+    middleStart: number,
+    penultimatePageItem: number;
   if (pagination.numbers) {
     if (pagination.arrows) {
       maxPageItems < 1 && (maxPageItems = 1);
@@ -17,20 +41,20 @@ export const getPageItemFactory = (pagination, goTo, getPageItemProps) => {
     penultimatePageItem = maxPageItems - 1;
   }
 
-  return (pageItemIndex) => {
-    const pageItem = { props: {} };
-    if (pageItemIndex > size) {
+  return (page) => {
+    const pageItem: PageItem = { props: {} };
+    if (page > size) {
       return pageItem;
     }
 
-    let page
+    let targetPage: Page;
     if (pagination.arrows) {
-      if (pageItemIndex === 0 || pageItemIndex === 'previous') {
-        page = pagination.page - 1;
+      if (page === 0 || page === 'previous') {
+        targetPage = pagination.page - 1;
         pageItem.page = 'previous';
         pageItem.disabled = pagination.page <= 1;
-      } else if (pageItemIndex === size || pageItemIndex === 'next') {
-        page = pagination.page + 1;
+      } else if (page === size || page === 'next') {
+        targetPage = pagination.page + 1;
         pageItem.page = 'next';
         pageItem.disabled = pagination.page >= pagination.totalPages;
       }
@@ -39,6 +63,8 @@ export const getPageItemFactory = (pagination, goTo, getPageItemProps) => {
       }
     }
 
+    let pageItemIndex = typeof page === 'number' ? page : 0;
+    
     if (pagination.numbers && !pageItem.page) {
       !pagination.arrows && pageItemIndex++;
 
@@ -50,7 +76,7 @@ export const getPageItemFactory = (pagination, goTo, getPageItemProps) => {
         if (pagination.page + penultimatePageItem > pagination.totalPages) {
           pageItem.page = upperStart + pageItemIndex;
         } else {
-          pageItem.page = pagination.page + pageItemIndex - 1;
+          pageItem.page = pagination.page + pageItemIndex - (pagination.page > 1 ? 2 : 1);
         }
       } else {
         if (pageItemIndex === 1) {
@@ -74,17 +100,20 @@ export const getPageItemFactory = (pagination, goTo, getPageItemProps) => {
         pageItem.current = true;
         pageItem.props['aria-current'] = 'true';
       }
-      page = pageItem.page;
+      targetPage = pageItem.page;
     }
-    pageItem.props.onClick = (e) => {
-      e.preventDefault();
-      goTo(page);
-    };
+
+    goTo &&
+      (pageItem.props.onClick = (e) => {
+        e.preventDefault();
+        goTo(targetPage);
+      });
+
     getPageItemProps &&
       typeof getPageItemProps === 'function' &&
       (pageItem.props = Object.assign(
         pageItem.props,
-        getPageItemProps(pageItemIndex, page, pageItem.props)
+        getPageItemProps(pageItemIndex, targetPage, pageItem.props)
       ));
     return pageItem;
   };

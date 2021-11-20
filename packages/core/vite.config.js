@@ -5,7 +5,7 @@ import path from 'path';
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.js'),
+      entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'react-pagination',
       fileName: (format) => `react-pagination.${format}.js`,
     },
