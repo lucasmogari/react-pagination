@@ -47,7 +47,7 @@ export const getPageItemFactory = (
       return pageItem;
     }
 
-    let targetPage: Page;
+    let targetPage: Page = 1;
     if (pagination.arrows) {
       if (page === 0 || page === 'previous') {
         targetPage = pagination.page - 1;
@@ -64,7 +64,7 @@ export const getPageItemFactory = (
     }
 
     let pageItemIndex = typeof page === 'number' ? page : 0;
-    
+
     if (pagination.numbers && !pageItem.page) {
       !pagination.arrows && pageItemIndex++;
 

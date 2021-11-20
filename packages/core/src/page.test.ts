@@ -1,15 +1,16 @@
 import { getPageItemFactory } from './page';
 import { getPagination } from './pagination';
+import { GetPageItemPropsFunction, Page, Pagination } from './types';
 
 test('getPageItemProps', () => {
   const pagination = getPagination({ totalItems: 50 });
-  const getPageItemProps = (pageItemIndex, page, props) => ({
+  const getPageItemProps: GetPageItemPropsFunction = (pageItemIndex, page, props) => ({
     ...props,
     label: page,
     onClick: 'override onClick',
   });
 
-  const getPageItem = getPageItemFactory(pagination, null, getPageItemProps);
+  const getPageItem = getPageItemFactory(pagination, undefined, getPageItemProps);
   expect(getPageItem(1).props.label).toBe(1);
   expect(getPageItem(1).props.onClick).toBe('override onClick');
 });
@@ -333,16 +334,20 @@ test('100 pages with 9 page items', () => {
   ]);
 });
 
-const expectPages = (pagination, pages) => {
+type PageItem = {
+  current?: boolean;
+  disabled?: boolean;
+  page?: Page;
+};
+
+const expectPages = (pagination: Pagination, pages: Array<Page | PageItem>) => {
   const getPageItem = getPageItemFactory(pagination);
   for (let i = 0; i < pages.length; i++) {
     const page = pages[i];
     if (typeof page === 'object') {
       const pageItem = getPageItem(i);
-      for (const key in page) {
-        if (page.hasOwnProperty(key)) {
-          expect(pageItem[key]).toBe(page[key]);
-        }
+      for (const key in <PageItem>page) {
+        expect(pageItem[key as keyof PageItem]).toBe(page[key as keyof PageItem]);
       }
     } else {
       expect(getPageItem(i).page).toBe(page);

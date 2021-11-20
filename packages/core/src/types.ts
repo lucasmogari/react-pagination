@@ -41,16 +41,26 @@ export type PaginationInput = {
   maxPageItems?: number;
 };
 
-export type Pagination = PaginationInput & {
-  size?: number;
-  toItem?: number;
-  fromItem?: number;
-  totalPages?: number;
+export type Pagination = {
+  page: number;
+  arrows: boolean;
+  numbers: boolean;
+  totalItems: number;
+  itemsPerPage: number;
+  maxPageItems: number;
+  size: number;
+  toItem: number;
+  fromItem: number;
+  totalPages: number;
 };
 
 export type GetPageItemPropsFunction = (pageItemIndex: number, page: Page, props: {}) => {};
 
-export type UsePaginationProps = Pagination & {
+export type UsePaginationProps = PaginationInput & {
+  size?: number;
+  toItem?: number;
+  fromItem?: number;
+  totalPages?: number;
   getPageItemProps?: GetPageItemPropsFunction;
 };
 

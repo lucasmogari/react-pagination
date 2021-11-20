@@ -16,11 +16,15 @@ const paginationReducer = (state: Pagination, action: Action): Pagination => {
   let { page, totalItems, itemsPerPage, maxPageItems } = state;
   switch (action.type) {
     case 'previous':
-      page = state.page - 1;
+      if (state.page) {
+        page = state.page - 1;
+      }
       break;
 
     case 'next':
-      page = state.page + 1;
+      if (state.page) {
+        page = state.page + 1;
+      }
       break;
 
     case 'update':
@@ -50,9 +54,30 @@ const PREVIOUS_ACTION: Action = { type: 'previous' };
 const NEXT_ACTION: Action = { type: 'next' };
 
 export const usePagination = ({
+  page,
+  arrows,
+  numbers,
+  totalItems,
+  itemsPerPage,
+  maxPageItems,
+  size,
+  toItem,
+  fromItem,
+  totalPages,
   getPageItemProps,
-  ...initialData
 }: UsePaginationProps): UsePaginationType => {
+  const initialData = {
+    page,
+    arrows,
+    numbers,
+    totalItems,
+    itemsPerPage,
+    maxPageItems,
+    size,
+    toItem,
+    fromItem,
+    totalPages,
+  };
   const [pagination, dispatch] = React.useReducer(paginationReducer, initialData, getPagination);
   const firstRender = React.useRef(true);
   const UPDATE_ACTION = (params: UpdateParams) => dispatch({ type: 'update', ...params });
@@ -83,12 +108,7 @@ export const usePagination = ({
     } else {
       UPDATE_ACTION(initialData);
     }
-  }, [
-    initialData.page,
-    initialData.totalItems,
-    initialData.itemsPerPage,
-    initialData.maxPageItems,
-  ]);
+  }, [page, totalItems, itemsPerPage, maxPageItems]);
 
   const getPageItem = React.useMemo(
     () => getPageItemFactory(pagination, goTo, getPageItemProps),
