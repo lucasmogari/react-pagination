@@ -1,3 +1,5 @@
+import { Pagination, PaginationInput } from './types';
+
 export const getPagination = ({
   totalItems,
   page = 1,
@@ -5,7 +7,7 @@ export const getPagination = ({
   maxPageItems = 7,
   numbers = true,
   arrows = true,
-}) => {
+}: PaginationInput): Pagination => {
   (!page || page < 1) && (page = 1);
   (!itemsPerPage || itemsPerPage < 1) && (itemsPerPage = 1);
   (!maxPageItems || maxPageItems < 0) && (maxPageItems = 0);
@@ -24,7 +26,7 @@ export const getPagination = ({
   const startItem = page < 1 ? 0 : (page - 1) * itemsPerPage;
   const fromItem = totalItems > 0 ? startItem + 1 : 0;
 
-  let toItem;
+  let toItem: number;
   if (totalItems < itemsPerPage) {
     toItem = totalItems;
   } else {

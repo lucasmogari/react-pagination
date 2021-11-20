@@ -77,10 +77,10 @@ test('10 pages with 2 page items', () => {
   expectPages(pagination, ['previous', { page: 1, current: true }, 2, 'next']);
 
   pagination.page = 2;
-  expectPages(pagination, ['previous', 2, 3, 'next']);
+  expectPages(pagination, ['previous', 1, 2, 'next']);
 
   pagination.page = 9;
-  expectPages(pagination, ['previous', { page: 9, current: true }, 10, 'next']);
+  expectPages(pagination, ['previous', 8, { page: 9, current: true }, 'next']);
 
   pagination.page = 10;
   expectPages(pagination, ['previous', 9, { page: 10, current: true }, 'next']);
@@ -90,10 +90,16 @@ test('10 pages with 3 page items', () => {
   const pagination = getPagination({ totalItems: 50, itemsPerPage: 5, maxPageItems: 3 });
   expectPages(pagination, ['previous', 1, 2, 3, 'next']);
 
+  pagination.page = 2;
+  expectPages(pagination, ['previous', 1, 2, 3, 'next']);
+
   pagination.page = 7;
-  expectPages(pagination, ['previous', 7, 8, 9, 'next']);
+  expectPages(pagination, ['previous', 6, 7, 8, 'next']);
 
   pagination.page = 8;
+  expectPages(pagination, ['previous', 7, 8, 9, 'next']);
+
+  pagination.page = 9;
   expectPages(pagination, ['previous', 8, 9, 10, 'next']);
 });
 
@@ -102,7 +108,7 @@ test('10 pages with 4 page items', () => {
   expectPages(pagination, ['previous', 1, 2, 3, 4, 'next']);
 
   pagination.page = 6;
-  expectPages(pagination, ['previous', 6, 7, 8, 9, 'next']);
+  expectPages(pagination, ['previous', 5, 6, 7, 8, 'next']);
 
   pagination.page = 10;
   expectPages(pagination, ['previous', 7, 8, 9, 10, 'next']);
