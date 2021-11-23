@@ -1,60 +1,26 @@
-import usePagination from '@lucasmogari/react-pagination';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import Demo from '../components/Demo';
 import Header from '../components/Header';
 import Highlight from '../components/Highlight';
 
 const Example = () => {
-  const {
-    currentPage,
-    fromItem,
-    toItem,
-    totalItems,
-    getPageItem,
-    size,
-  } = usePagination({
-    totalItems: 100,
-    page: 1, // default value
-    itemsPerPage: 24, // default value
-    maxPageItems: 7, // default value
-    numbers: true, // default value
-    arrows: true, // default value
-    getPageItemProps: (pageItemIndex, page, props) => {
-      const defaultOnClick = props.onClick;
-      // Overwriting onClick
-      props.onClick = (e) => {
-        console.log({ pageItemIndex, page, props });
-        defaultOnClick(e);
-      };
-    },
-  });
-
-  return (
-    <div>
-      <p>
-        Items {fromItem}-{toItem} of {totalItems}
-      </p>
-      <ul style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none' }}>
-        {[...Array(size)].map((_, i) => {
-          const { page, props } = getPageItem(i);
-          return (
-            <li key={i}>
-              <button
-                {...props}
-                style={{
-                  margin: '.5rem',
-                  padding: '1rem',
-                  fontWeight: page === currentPage ? 'bold' : null,
-                }}>
-                {page}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setReady(true);
+    }, 3000);
+  }, []);
+  return ready ? (
+    <iframe
+      src="https://codesandbox.io/embed/lucasmogari-react-pagination-example-ncqk0?fontsize=14&hidenavigation=1&theme=dark"
+      style={{ width: '100%', height: 500, border: 0, borderRadius: 4, overflow: 'hidden' }}
+      title="@lucasmogari/react-pagination example"
+      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe>
+  ) : 'Loading CodeSandbox...';
 };
 
 const Home = (props) => {
@@ -161,12 +127,7 @@ const {
 
           <div>
             <h3 className="mb-1 text-xl">Example</h3>
-            <iframe
-              src="https://codesandbox.io/embed/lucasmogari-react-pagination-example-ncqk0?fontsize=14&hidenavigation=1&theme=dark"
-              style={{ width: '100%', height: 500, border: 0, borderRadius: 4, overflow: 'hidden' }}
-              title="@lucasmogari/react-pagination example"
-              allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-              sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe>
+            <Example />
           </div>
         </main>
 
