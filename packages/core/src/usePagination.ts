@@ -126,6 +126,7 @@ export const usePagination = ({
 
   return {
     ...pagination,
+    currentPage: pagination.page,
     goTo,
     previous,
     next,

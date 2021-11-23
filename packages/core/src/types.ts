@@ -43,6 +43,7 @@ export type PaginationInput = {
 
 export type Pagination = {
   page: number;
+  currentPage: number;
   arrows: boolean;
   numbers: boolean;
   totalItems: number;
@@ -54,7 +55,7 @@ export type Pagination = {
   totalPages: number;
 };
 
-export type GetPageItemPropsFunction = (pageItemIndex: number, page: Page, props: {}) => {};
+export type GetPageItemPropsFunction = (pageItemIndex: number, page: Page, props: PageItemProps) => {};
 
 export type UsePaginationProps = PaginationInput & {
   size?: number;
