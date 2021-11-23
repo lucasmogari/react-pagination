@@ -7,7 +7,7 @@ import Highlight from '../components/Highlight';
 
 const Example = () => {
   const {
-    page: currentPage,
+    currentPage,
     fromItem,
     toItem,
     totalItems,
