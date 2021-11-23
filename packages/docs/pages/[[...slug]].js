@@ -161,69 +161,12 @@ const {
 
           <div>
             <h3 className="mb-1 text-xl">Example</h3>
-            <p className="mb-2">
-              A list with 100 items, with each page containing 24 items. It will be created 5 pages
-              and the last one will have the last 4 items.
-            </p>
-            <div className="mb-4">
-              <h4>Code</h4>
-              <Highlight language="javascript">
-                {`const {
-  page: currentPage,
-  fromItem,
-  toItem,
-  totalItems,
-  getPageItem,
-  size,
-} = usePagination({
-  totalItems: 100,
-  page: 1,            // default value
-  itemsPerPage: 24,   // default value
-  maxPageItems: 7,    // default value
-  numbers: true,      // default value
-  arrows: true,       // default value
-  getPageItemProps: (pageItemIndex, page, props) => {
-    const defaultOnClick = props.onClick;
-    // Overwriting onClick
-    props.onClick = (e) => {
-      console.log({ pageItemIndex, page, props });
-      defaultOnClick(e);
-    };
-  },
-});
-
-return (
-  <div>
-    <p>
-      Items {fromItem}-{toItem} of {totalItems}
-    </p>
-    <ul style={{ display: 'flex', listStyle: 'none' }}>
-      {[...Array(size)].map((_, i) => {
-        const { page, props } = getPageItem(i);
-        return (
-          <li key={i}>
-            <button
-              {...props}
-              style={{
-                margin: '.5rem',
-                padding: '1rem',
-                fontWeight: page === currentPage ? 'bold' : null
-              }}>
-              {page}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
-  </div>
-);
-`}
-              </Highlight>
-            </div>
-            <h4>Live</h4>
-            <div className="p-2 rounded shadow">
-              <Example />
-            </div>
+            <iframe
+              src="https://codesandbox.io/embed/lucasmogari-react-pagination-example-ncqk0?fontsize=14&hidenavigation=1&theme=dark"
+              style={{ width: '100%', height: 500, border: 0, borderRadius: 4, overflow: 'hidden' }}
+              title="@lucasmogari/react-pagination example"
+              allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+              sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe>
           </div>
         </main>
 
