@@ -2,6 +2,14 @@
 
 Headless react hook for pagination.
 
+- Headless hook
+- Small bundle
+- Typescript
+
+Bundle size:
+3.4 kB (minified)
+1.4 kB (minified + gzipped)
+
 
 ### Install
 

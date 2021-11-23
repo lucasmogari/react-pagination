@@ -17,7 +17,7 @@
   "author": "Lucas Mogari <lucas@mogari.co>",
   "license": "MIT",
   "repository": "lucasmogari/react-pagination",
-  "homepage": "https://react-pagination.mogari.co/",
+  "homepage": "https://react-pagination.mogari.co",
   "keywords": [
     "react",
     "pagination",
