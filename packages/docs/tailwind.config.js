@@ -1,8 +1,7 @@
 const defaultConfig = require('tailwindcss/defaultConfig');
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./components/**/*.js', './pages/**/*.js'],
+  content: ['./components/**/*.js', './pages/**/*.js'],
   theme: {
     extend: {
       spacing: {
