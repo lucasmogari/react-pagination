@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { getPagination } from './pagination';
 
 test('total pages', () => {

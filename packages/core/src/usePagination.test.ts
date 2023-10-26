@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
+import { expect, test } from 'vitest';
 import { usePagination } from './usePagination';
 
 test('go to a page', () => {

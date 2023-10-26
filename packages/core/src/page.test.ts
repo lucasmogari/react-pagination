@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { getPageItemFactory } from './page';
 import { getPagination } from './pagination';
 import { GetPageItemPropsFunction, Page, Pagination } from './types';
