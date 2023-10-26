@@ -1,5 +1,4 @@
 import usePagination from '@lucasmogari/react-pagination';
-import { VisuallyHidden } from 'reakit/VisuallyHidden';
 import NextButton from './NextButton';
 import PageGap from './PageGap';
 import PageItemButton from './PageItemButton';
@@ -28,9 +27,6 @@ const Header = () => {
 
   return (
     <header className="my-10 -mx-4 text-center">
-      <VisuallyHidden>
-        <h1>react-pagination</h1>
-      </VisuallyHidden>
       <div className="inline-flex flex-wrap items-center justify-center space-x-1">
         <div className="flex items-center">
           <PreviousButton
@@ -59,7 +55,6 @@ const Header = () => {
         <a
           href="https://github.com/lucasmogari/react-pagination"
           className="inline-block w-5 sm:ml-4 hover:text-blue-700">
-          <VisuallyHidden>Github</VisuallyHidden>
           <svg
             aria-hidden="true"
             focusable="false"
