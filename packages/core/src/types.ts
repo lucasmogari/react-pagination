@@ -43,7 +43,7 @@ export type PaginationInput = {
 
 export type Pagination = {
   page: number;
-  currentPage: number;
+  currentPage?: number;
   arrows: boolean;
   numbers: boolean;
   totalItems: number;
