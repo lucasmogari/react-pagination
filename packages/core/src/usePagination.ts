@@ -31,7 +31,7 @@ const paginationReducer = (state: Pagination, action: Action): Pagination => {
       if (action.page) {
         page = Number(action.page);
       }
-      if (action.totalItems) {
+      if (action.totalItems !== undefined) {
         totalItems = Number(action.totalItems);
       }
       if (action.itemsPerPage) {

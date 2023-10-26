@@ -61,3 +61,12 @@ test('only arrows', () => {
   act(() => result.current.next());
   expect(result.current.getPageItem(1).disabled).toBe(true);
 });
+
+test('update totalItems to 0', () => {
+  const { result } = renderHook(() => usePagination({ totalItems: 70, itemsPerPage: 10 }));
+
+  expect(result.current.totalPages).toBe(7);
+
+  act(() => result.current.setTotalItems(0));
+  expect(result.current.totalPages).toBe(0);
+});
