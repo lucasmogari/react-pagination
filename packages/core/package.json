@@ -27,8 +27,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "test": "vitest",
-    "test:watch": "npm run test -- --watchAll",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "build": "vite build",
     "serve": "vite preview",
     "release": "npm run build && np"
