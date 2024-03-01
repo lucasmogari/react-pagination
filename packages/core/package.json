@@ -10,7 +10,8 @@
   "exports": {
     ".": {
       "import": "./dist/react-pagination.es.js",
-      "require": "./dist/react-pagination.umd.js"
+      "require": "./dist/react-pagination.umd.js",
+      "types": "./dist/src/index.d.ts"
     }
   },
   "version": "1.1.4",
