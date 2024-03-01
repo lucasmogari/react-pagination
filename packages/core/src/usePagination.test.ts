@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 import { expect, test } from 'vitest';
 import { usePagination } from './usePagination';
 
