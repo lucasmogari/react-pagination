@@ -15,7 +15,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "prettier": "^2.5.1",
+    "prettier": "^3.2.5",
     "turbo": "latest"
   },
   "engines": {
