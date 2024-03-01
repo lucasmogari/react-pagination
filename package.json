@@ -1,20 +1,22 @@
 {
   "name": "root",
   "version": "0.0.1",
-  "private": true,
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "scripts": {
     "build": "turbo run build",
+    "test": "turbo run test",
     "export": "turbo run export",
     "deploy": "turbo run deploy",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "prettier": "^3.2.5",
     "turbo": "latest"
   },
