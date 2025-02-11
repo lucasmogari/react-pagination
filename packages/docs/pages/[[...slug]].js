@@ -26,7 +26,7 @@ const Example = () => {
 const Home = (props) => {
   const router = useRouter();
 
-  const { page } = props;
+  let page = props.page;
   if (!page) {
     return null;
   }
@@ -43,11 +43,12 @@ const Home = (props) => {
   if (slugPage !== page) {
     page = slugPage;
   }
+  const title = `${page > 1 ? `Page ${page} - ` : ''}React Pagination`;
 
   return (
     <>
       <Head>
-        <title>{page > 1 ? `Page ${page} - ` : ''}React Pagination</title>
+        <title>{title}</title>
       </Head>
       <div className="p-4 sm:mx-auto" style={{ maxWidth: 1024 }}>
         <Header />
