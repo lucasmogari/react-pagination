@@ -14,7 +14,7 @@
       "types": "./dist/src/index.d.ts"
     }
   },
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Headless react hook for pagination",
   "author": "Lucas Mogari <lucas@mogari.com.br>",
   "license": "MIT",
