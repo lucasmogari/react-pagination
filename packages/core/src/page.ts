@@ -43,7 +43,7 @@ export const getPageItemFactory = (
 
   return (page) => {
     const pageItem: PageItem = { props: {} };
-    if (page > size) {
+    if (typeof page === 'number' && page > size) {
       return pageItem;
     }
 
