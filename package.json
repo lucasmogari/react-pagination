@@ -19,10 +19,12 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "prettier": "^3.2.5",
+    "react": "^19.0.0",
     "turbo": "latest"
   },
   "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=16.0.0"
-  }
+    "npm": ">=10.0.0",
+    "node": ">=20.0.0"
+  },
+  "packageManager": "npm@10.2.4"
 }
