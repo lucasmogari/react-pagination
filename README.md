@@ -1,5 +1,10 @@
 # react-pagination
 
+## DEPRECATED
+See [@lucasmogari/pagination](https://github.com/lucasmogari/pagination)
+
+---
+
 Headless react hook for pagination.
 
 - Headless hook
