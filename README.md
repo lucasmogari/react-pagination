@@ -27,6 +27,4 @@ yarn add @lucasmogari/react-pagination
 
 ### Demo
 
-https://react-pagination-docs.vercel.app/
-
 ![](demo.gif)
